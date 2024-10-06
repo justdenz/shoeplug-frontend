@@ -24,7 +24,7 @@ const Product = () => {
   if (error) return <p>Error!</p>;
 
   return (
-    <div className="flex flex-row flex-wrap justify-center px-32">
+    <div className="flex flex-row flex-wrap justify-center px-80">
       {data.shoes &&
         data.shoes.map((product: any) => {
           return <ProductCard key={product.documentId} product={product} />;
