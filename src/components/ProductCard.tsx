@@ -1,16 +1,17 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
+import { IProduct } from "@/models/Product";
+
 interface ProductCardProps {
-  products: any;
+  product: IProduct;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   //   const price = props.product.Price.toString();
   //   const displayName =
-  console.log(props);
   return (
     <div className="p-6">
-      <div key={props.product.documentID}>
+      <div key={props.product.documentId}>
         <CldImage
           priority={true}
           width={300}
@@ -21,9 +22,20 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           alt="Logo"
         />
       </div>
-      <div className="font-bold">{"₱" + props.product.Price}</div>
-      <div>{props.product.brand.BrandName + " " + props.product.Model}</div>
-      <div>{props.product.Colorway}</div>
+      <div className="flex flex-row justify-between">
+        <div className="">
+          {props.product.model + " " + props.product.colorway}
+        </div>
+        <div className="font-bold">{"₱" + props.product.price}</div>
+      </div>
+      <div className="flex flex-row justify-between">
+        <div className="text-gray-400">{props.product.brand.brand_name}</div>
+        {props.product.is_used ? (
+          <div className="text-orange-500">Used</div>
+        ) : (
+          <div className="text-green-500">Brand New</div>
+        )}
+      </div>
     </div>
   );
 };

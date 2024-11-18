@@ -3,11 +3,7 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
 
-interface HeaderProps {
-  links: Array<{ name: string; url: string }>;
-}
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
   return (
     <header className="flex justify-between items-center p-5 bg-blue text-white">
       <div className="logo">

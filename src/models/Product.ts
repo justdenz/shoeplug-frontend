@@ -1,7 +1,12 @@
 export interface IProduct {
-  id: number;
   model: string;
-  brand: string;
+  brand: {
+    brand_name: string;
+  };
   stock: number;
+  colorway: string;
   image_url: string;
+  documentId: string;
+  price: number;
+  is_used: boolean;
 }
