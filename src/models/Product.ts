@@ -10,3 +10,7 @@ export interface IProduct {
   price: number;
   is_used: boolean;
 }
+
+export interface IFilteredProducts {
+  shoes: Array<IProduct>;
+}
