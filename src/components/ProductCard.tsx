@@ -10,7 +10,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   //   const price = props.product.Price.toString();
   //   const displayName =
   return (
-    <div className="p-6">
+    <div className="">
       <div key={props.product.documentId}>
         <CldImage
           priority={true}
@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           alt="Logo"
         />
       </div>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between text-lg font-bold">
         <div className="">
           {props.product.model + " " + props.product.colorway}
         </div>

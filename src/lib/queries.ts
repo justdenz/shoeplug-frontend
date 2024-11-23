@@ -43,4 +43,60 @@ const GET_BRANDS = gql`
   }
 `;
 
-export { GET_ALL_PRODUCTS, GET_FILTERED_PRODUCTS, GET_BRANDS };
+const GetFilteredVariables = (
+  filteredBrands: string[],
+  filteredOthers: boolean[]
+) => {
+  if (filteredBrands.length > 0 && filteredOthers.length === 0) {
+    return {
+      pagination: {
+        limit: 10,
+      },
+      filters: {
+        brand: {
+          brand_name: {
+            in: filteredBrands,
+          },
+        },
+      },
+    };
+  }
+
+  if (filteredBrands.length === 0 && filteredOthers.length > 0) {
+    return {
+      pagination: {
+        limit: 10,
+      },
+      filters: {
+        is_used: {
+          in: filteredOthers,
+        },
+      },
+    };
+  }
+
+  const variables = {
+    pagination: {
+      limit: 10,
+    },
+    filters: {
+      brand: {
+        brand_name: {
+          in: filteredBrands,
+        },
+      },
+      is_used: {
+        in: filteredOthers,
+      },
+    },
+  };
+
+  return variables;
+};
+
+export {
+  GET_ALL_PRODUCTS,
+  GET_FILTERED_PRODUCTS,
+  GET_BRANDS,
+  GetFilteredVariables,
+};

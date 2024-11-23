@@ -11,6 +11,6 @@ export interface IProduct {
   is_used: boolean;
 }
 
-export interface IFilteredProducts {
+export interface IShoes {
   shoes: Array<IProduct>;
 }

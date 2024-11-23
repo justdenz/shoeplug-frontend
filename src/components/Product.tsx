@@ -1,35 +1,38 @@
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
-import { IProduct, IFilteredProducts } from "@/models/Product";
+import { useQuery, useLazyQuery } from "@apollo/client";
+import { IProduct, IShoes } from "@/models/Product";
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
-import { GET_ALL_PRODUCTS, GET_FILTERED_PRODUCTS } from "@/lib/queries";
+import {
+  GET_ALL_PRODUCTS,
+  GET_FILTERED_PRODUCTS,
+  GetFilteredVariables,
+} from "@/lib/queries";
+
+const ProductContainer = (products: IShoes) => {
+  return (
+    <div className="flex">
+      <div className="flex flex-row flex-wrap justify-center gap-5">
+        {products.shoes &&
+          products.shoes.map((product: IProduct) => {
+            return <ProductCard key={product.documentId} product={product} />;
+          })}
+      </div>
+    </div>
+  );
+};
 
 const Product = () => {
-  const [displayedProducts, setDisplayedProducts] =
-    useState<IFilteredProducts>();
+  const [displayedProducts, setDisplayedProducts] = useState<IShoes>({
+    shoes: [],
+  });
   const [filteredBrands, setFilteredBrands] = useState<string[]>([]);
+  const [filteredOthers, setFilteredOthers] = useState<boolean[]>([]);
 
   const { loading, data, error } = useQuery(GET_ALL_PRODUCTS);
 
   const [getFilteredProducts, {}] = useLazyQuery(GET_FILTERED_PRODUCTS, {
-    variables: {
-      pagination: {
-        limit: 10,
-      },
-      filters: {
-        brand: {
-          brand_name: {
-            in: filteredBrands,
-          },
-        },
-        or: {
-          is_used: {
-            in: [true, false],
-          },
-        },
-      },
-    },
+    variables: GetFilteredVariables(filteredBrands, filteredOthers),
     onCompleted: (data) => {
       if (data) {
         setDisplayedProducts(data);
@@ -38,49 +41,29 @@ const Product = () => {
   });
 
   useEffect(() => {
+    console.log("CHANGE");
     getFilteredProducts();
-  }, [filteredBrands, getFilteredProducts]);
+  }, [filteredBrands, getFilteredProducts, filteredOthers]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error</p>;
 
-  if (filteredBrands.length === 0) {
-    return (
-      <div className="flex flex-row">
-        <div className="p-10 justify-items-end">
-          <ProductFilter setFilteredBrands={setFilteredBrands} />
-        </div>
-        <div className="flex-1">
-          <div className="flex flex-row flex-wrap justify-center px-80">
-            {data.shoes &&
-              data.shoes.map((product: IProduct) => {
-                return (
-                  <ProductCard key={product.documentId} product={product} />
-                );
-              })}
-          </div>
-        </div>
+  return (
+    <div className="flex flex-row">
+      <div className="mt-5 mr-5 basis-1/5 grow-0 shrink-0 justify-items-center">
+        <ProductFilter
+          setFilteredBrands={setFilteredBrands}
+          setFilteredOthers={setFilteredOthers}
+          filteredOthers={filteredOthers}
+        />
       </div>
-    );
-  } else {
-    return (
-      <div className="flex flex-row">
-        <div className="p-10 justify-items-end">
-          <ProductFilter setFilteredBrands={setFilteredBrands} />
-        </div>
-        <div className="flex-1">
-          <div className="flex flex-row flex-wrap justify-center px-80">
-            {displayedProducts &&
-              displayedProducts.shoes.map((product: IProduct) => {
-                return (
-                  <ProductCard key={product.documentId} product={product} />
-                );
-              })}
-          </div>
-        </div>
+      <div className="mt-5 basis-4/5 grow-0 shrink-0 border-l-2 justify-items-center">
+        {filteredBrands.length === 0 && filteredOthers.length === 0
+          ? ProductContainer(data)
+          : ProductContainer(displayedProducts)}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Product;

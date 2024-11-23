@@ -5,35 +5,38 @@ import { CldImage } from "next-cloudinary";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex justify-between items-center p-2 bg-blue text-white">
-      <div className="logo">
-        <CldImage
-          src={"logo_ldetnd"}
-          alt="Logo"
-          width={40}
-          height={40}
-          className="h-10 rounded-full"
-        />
-      </div>
+    <header className="flex justify-between items-center p-3 bg-black text-white">
       <nav>
-        <ul className="flex space-x-4">
+        <ul className="mt-2 flex space-x-10 text-xl">
           <li key={"home"}>
-            <a href={"/"} className="hover:underline">
+            <a href={"/"} className="text-white no-underline hover:underline">
               Home
             </a>
           </li>
           <li key={"product"}>
-            <a href={"/product"} className="hover:underline">
+            <a
+              href={"/product"}
+              className="text-white no-underline hover:underline"
+            >
               Products
             </a>
           </li>
           <li key={"about"}>
-            <a href={"/"} className="hover:underline">
+            <a href={"/"} className="text-white no-underline hover:underline">
               About
             </a>
           </li>
         </ul>
       </nav>
+      <div className="logo">
+        <CldImage
+          src={"logo_ldetnd"}
+          alt="Logo"
+          width={70}
+          height={60}
+          className="rounded-full"
+        />
+      </div>
     </header>
   );
 };
