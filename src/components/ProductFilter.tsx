@@ -18,56 +18,6 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error</p>;
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    const filteredBrandArray: string[] = [];
-    const filteredOthersArray: boolean[] = [];
-    const brandCheckedValues = Array.from(e.target.brand_group).map(
-      (brand) => ({
-        brandId: brand.id,
-        isChecked: brand.checked,
-      })
-    );
-
-    const othersCheckedValues = Array.from(e.target.is_used_group).map(
-      (item) => ({
-        itemId: item.id,
-        isChecked: item.checked,
-      })
-    );
-
-    const selectedBrandFilter = brandCheckedValues
-      .filter((brand) => brand.isChecked === true)
-      .map((brand) => ({ brandName: brand.brandId }));
-
-    const selectedOthersFilter = othersCheckedValues
-      .filter((item) => item.isChecked === true)
-      .map((item) => ({ itemName: item.itemId }));
-
-    if (selectedBrandFilter.length > 0) {
-      selectedBrandFilter.forEach((element) => {
-        filteredBrandArray.push(element.brandName);
-      });
-
-      props.setFilteredBrands(filteredBrandArray);
-    } else {
-      props.setFilteredBrands([]);
-    }
-
-    if (selectedOthersFilter.length > 0) {
-      selectedOthersFilter.forEach((element) => {
-        if (element.itemName === "brand_new") {
-          filteredOthersArray.push(false);
-        } else if (element.itemName === "used") {
-          filteredOthersArray.push(true);
-        }
-      });
-      props.setFilteredOthers(filteredOthersArray);
-    } else {
-      props.setFilteredOthers([]);
-    }
-  };
-
   const handleCheckedFilter = (e) => {
     if (e.target.name === "is_used_group") {
       const prevFilter = [...props.filteredOthers];
@@ -110,7 +60,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   return (
     <div className="w-full h-full pl-16 border-r-2">
       <div className="text-xl mb-3 font-semibold">Brand</div>
-      <Form onSubmit={onFormSubmit} onChange={handleCheckedFilter}>
+      <Form onChange={handleCheckedFilter}>
         <Form.Group className="mb-5" controlId="brandFilterForm">
           {data.brands &&
             data.brands.map((brand: IBrand) => {
@@ -126,7 +76,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
               );
             })}
         </Form.Group>
-        <div className="h-px w-full bg-gray-300 mb-5"></div>
+        <div className="h-px w-full bg-gray-300 mb-3"></div>
         <Form.Group controlId="isUsedFilterForm">
           <div className="text-xl mb-3 font-semibold">Used</div>
           <Form.Check
@@ -144,9 +94,6 @@ const ProductFilter: React.FC<ProductFilterProps> = (
             id={"used"}
           />
         </Form.Group>
-        {/* <Button variant="warning" type="submit" className="mt-2 btn-primary">
-          Apply Filter
-        </Button> */}
       </Form>
     </div>
   );
