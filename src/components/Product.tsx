@@ -43,7 +43,7 @@ const Product = () => {
   useEffect(() => {
     console.log("CHANGE");
     getFilteredProducts();
-  }, [filteredBrands, getFilteredProducts, filteredOthers]);
+  }, [filteredBrands, filteredOthers, getFilteredProducts]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error</p>;
@@ -55,9 +55,10 @@ const Product = () => {
           setFilteredBrands={setFilteredBrands}
           setFilteredOthers={setFilteredOthers}
           filteredOthers={filteredOthers}
+          filteredBrands={filteredBrands}
         />
       </div>
-      <div className="mt-5 basis-4/5 grow-0 shrink-0 border-l-2 justify-items-center">
+      <div className="mt-5 basis-4/5 grow-0 shrink-0 justify-items-center">
         {filteredBrands.length === 0 && filteredOthers.length === 0
           ? ProductContainer(data)
           : ProductContainer(displayedProducts)}

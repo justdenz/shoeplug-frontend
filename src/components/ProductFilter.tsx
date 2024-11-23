@@ -8,6 +8,7 @@ interface ProductFilterProps {
   setFilteredBrands: (Array: string[]) => void;
   setFilteredOthers: (Array: boolean[]) => void;
   filteredOthers: boolean[];
+  filteredBrands: string[];
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (
@@ -68,30 +69,46 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   };
 
   const handleCheckedFilter = (e) => {
-    // if (e.target.name === "is_used_group") {
-    //   const prevFilter = props.filteredOthers;
-    //   const isUsedObject = {
-    //     objectID: e.target.id,
-    //     isChecked: e.target.checked,
-    //   };
-    //   if (isUsedObject.isChecked) {
-    //     const filterItem = isUsedObject.objectID === "brand_new" ? false : true;
-    //     prevFilter.push(filterItem);
-    //     console.log(prevFilter);
-    //     props.setFilteredOthers(prevFilter);
-    //   } else if (!isUsedObject.isChecked) {
-    //     const filterItem = isUsedObject.objectID === "brand_new" ? false : true;
-    //     const index = prevFilter.indexOf(filterItem, 0);
-    //     if (index > -1) {
-    //       prevFilter.splice(index, 1);
-    //     }
-    //     console.log(prevFilter);
-    //     props.setFilteredOthers(prevFilter);
-    //   }
-    // }
+    if (e.target.name === "is_used_group") {
+      const prevFilter = [...props.filteredOthers];
+      const isUsedObject = {
+        objectID: e.target.id,
+        isChecked: e.target.checked,
+      };
+      const filterItem = isUsedObject.objectID === "brand_new" ? false : true;
+      if (isUsedObject.isChecked) {
+        prevFilter.push(filterItem);
+        props.setFilteredOthers(prevFilter);
+      } else if (!isUsedObject.isChecked) {
+        const index = prevFilter.indexOf(filterItem, 0);
+        if (index > -1) {
+          prevFilter.splice(index, 1);
+        }
+        props.setFilteredOthers(prevFilter);
+      }
+    }
+
+    if (e.target.name === "brand_group") {
+      const prevFilter = [...props.filteredBrands];
+      const isUsedObject = {
+        objectID: e.target.id,
+        isChecked: e.target.checked,
+      };
+
+      if (isUsedObject.isChecked) {
+        prevFilter.push(isUsedObject.objectID);
+        props.setFilteredBrands(prevFilter);
+      } else if (!isUsedObject.isChecked) {
+        const index = prevFilter.indexOf(isUsedObject.objectID, 0);
+        if (index > -1) {
+          prevFilter.splice(index, 1);
+        }
+        props.setFilteredBrands(prevFilter);
+      }
+    }
   };
   return (
-    <div className="w-full pl-16">
+    <div className="w-full h-full pl-16 border-r-2">
       <div className="text-xl mb-3 font-semibold">Brand</div>
       <Form onSubmit={onFormSubmit} onChange={handleCheckedFilter}>
         <Form.Group className="mb-5" controlId="brandFilterForm">
@@ -127,9 +144,9 @@ const ProductFilter: React.FC<ProductFilterProps> = (
             id={"used"}
           />
         </Form.Group>
-        <Button variant="warning" type="submit" className="mt-2 btn-primary">
+        {/* <Button variant="warning" type="submit" className="mt-2 btn-primary">
           Apply Filter
-        </Button>
+        </Button> */}
       </Form>
     </div>
   );
