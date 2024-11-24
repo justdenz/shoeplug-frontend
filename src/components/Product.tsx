@@ -22,7 +22,7 @@ const ProductContainer = (products: IShoes) => {
   );
 };
 
-const Product = () => {
+const Product = ({ query }: { query: string }) => {
   const [displayedProducts, setDisplayedProducts] = useState<IShoes>({
     shoes: [],
   });
@@ -40,6 +40,26 @@ const Product = () => {
     },
   });
 
+  const [getSearchProducts, {}] = useLazyQuery(GET_FILTERED_PRODUCTS, {
+    variables: {
+      filters: {
+        search_tag: {
+          contains: query,
+        },
+      },
+    },
+    onCompleted: (data) => {
+      if (data) {
+        console.log(data);
+        setDisplayedProducts(data);
+      }
+    },
+  });
+  useEffect(() => {
+    if (query !== "") {
+      getSearchProducts();
+    }
+  }, [query, getSearchProducts]);
   useEffect(() => {
     getFilteredProducts();
   }, [filteredBrands, filteredOthers, getFilteredProducts]);
@@ -60,7 +80,7 @@ const Product = () => {
         </div>
       </div>
       <div className="mt-32 min-h-[calc(100vh-5.75rem)] w-3/4 justify-items-center">
-        {filteredBrands.length === 0 && filteredOthers.length === 0
+        {displayedProducts.shoes.length === 0
           ? ProductContainer(data)
           : ProductContainer(displayedProducts)}
       </div>

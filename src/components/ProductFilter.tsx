@@ -1,9 +1,12 @@
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState, ChangeEvent } from "react";
+import { useQuery } from "@apollo/client";
 import { IBrand } from "@/models/Brand";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { GET_BRANDS } from "@/lib/queries";
+import { Search } from "react-bootstrap-icons";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 interface ProductFilterProps {
   setFilteredBrands: (Array: string[]) => void;
   setFilteredOthers: (Array: boolean[]) => void;
@@ -15,6 +18,29 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   props: ProductFilterProps
 ) => {
   const { loading, error, data } = useQuery(GET_BRANDS);
+  const [searchText, setSearchText] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleSearch = () => {
+    const params = new URLSearchParams(searchParams);
+    if (searchText) {
+      params.set("query", searchText);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  };
+
+  const handleKeyPress = (event: { key: any }) => {
+    if (event.key === "Enter") return handleSearch();
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error</p>;
 
@@ -57,11 +83,37 @@ const ProductFilter: React.FC<ProductFilterProps> = (
       }
     }
   };
+
   return (
     <div className="w-full h-full pl-24">
-      <div className="text-xl mb-3 font-semibold">Brand</div>
-      <Form onChange={handleCheckedFilter}>
-        <Form.Group className="mb-5" controlId="brandFilterForm">
+      <Form
+        onSubmit={(e) => {
+          e.target.reset();
+          e.preventDefault();
+        }}
+        onChange={handleCheckedFilter}
+      >
+        <Form.Group className="mb-4" controlId="searchFilterForm">
+          <InputGroup>
+            <Form.Control
+              type="text"
+              placeholder="Search a shoe item..."
+              aria-describedby="input item to search here"
+              onChange={handleChange}
+            />
+            <Button
+              variant="outline-secondary"
+              onClick={handleSearch}
+              id="button-addon1"
+              type="submit"
+              onKeyDown={handleKeyPress}
+            >
+              <Search />
+            </Button>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group className="mb-4" controlId="brandFilterForm">
+          <div className="text-xl my-3 font-semibold">Brand</div>
           {data.brands &&
             data.brands.map((brand: IBrand) => {
               return (

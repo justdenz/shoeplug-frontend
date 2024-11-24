@@ -1,14 +1,11 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
 import { IProduct } from "@/models/Product";
-
 interface ProductCardProps {
   product: IProduct;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  //   const price = props.product.Price.toString();
-  //   const displayName =
   return (
     <div>
       <div key={props.product.documentId}>

@@ -2,13 +2,21 @@
 
 import React from "react";
 import { CldImage } from "next-cloudinary";
-import FormText from "./FormText";
 
 const Header: React.FC = () => {
   return (
     <header className="flex justify-between items-center p-3 bg-black text-white fixed top-0 w-full">
+      <div className="logo ml-5">
+        <CldImage
+          src={"logo_ldetnd"}
+          alt="Logo"
+          width={70}
+          height={60}
+          className="absolute top-2 m-auto rounded-full"
+        />
+      </div>
       <nav>
-        <ul className="mt-2 flex space-x-10 text-xl">
+        <ul className="mt-2 mr-28 flex space-x-5 text-xl">
           <li key={"home"}>
             <a href={"/"} className="text-white no-underline hover:underline">
               Home
@@ -29,18 +37,6 @@ const Header: React.FC = () => {
           </li>
         </ul>
       </nav>
-      <div className="logo">
-        <CldImage
-          src={"logo_ldetnd"}
-          alt="Logo"
-          width={70}
-          height={60}
-          className="absolute left-0 right-0 top-2 m-auto rounded-full"
-        />
-      </div>
-      <div className="w-1/5">
-        <FormText />
-      </div>
     </header>
   );
 };
