@@ -1,9 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  console.log(request);
-}
+export function middleware(request: NextRequest) {}
 
-// export const config = {
-//   matcher: "/product",
-// };
+export const config = {
+  matcher: "/product/:path*",
+};

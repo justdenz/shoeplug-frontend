@@ -50,7 +50,6 @@ const Product = ({ query }: { query: string }) => {
     },
     onCompleted: (data) => {
       if (data) {
-        console.log(data);
         setDisplayedProducts(data);
       }
     },

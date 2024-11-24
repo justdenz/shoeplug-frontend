@@ -20,21 +20,23 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   const { loading, error, data } = useQuery(GET_BRANDS);
   const [searchText, setSearchText] = useState("");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
   const handleSearch = () => {
     const params = new URLSearchParams(searchParams);
-    if (searchText) {
+    if (searchText !== "") {
       params.set("query", searchText);
     } else {
       params.delete("query");
     }
     replace(`${pathname}?${params.toString()}`);
+    setSearchText("");
   };
 
   const handleKeyPress = (event: { key: any }) => {
@@ -90,6 +92,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
         onSubmit={(e) => {
           e.target.reset();
           e.preventDefault();
+          handleSearch();
         }}
         onChange={handleCheckedFilter}
       >
@@ -100,10 +103,10 @@ const ProductFilter: React.FC<ProductFilterProps> = (
               placeholder="Search a shoe item..."
               aria-describedby="input item to search here"
               onChange={handleChange}
+              defaultValue={searchParams.get("query")?.toString()}
             />
             <Button
               variant="outline-secondary"
-              onClick={handleSearch}
               id="button-addon1"
               type="submit"
               onKeyDown={handleKeyPress}
