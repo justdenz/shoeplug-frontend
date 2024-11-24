@@ -49,16 +49,18 @@ const Product = () => {
   if (error) return <p>error</p>;
 
   return (
-    <div className="flex flex-row">
-      <div className="mt-5 mr-5 basis-1/5 grow-0 shrink-0 justify-items-center">
-        <ProductFilter
-          setFilteredBrands={setFilteredBrands}
-          setFilteredOthers={setFilteredOthers}
-          filteredOthers={filteredOthers}
-          filteredBrands={filteredBrands}
-        />
+    <div className="flex flex-row w-full">
+      <div className="w-1/5 mr-5 mt-5">
+        <div className="sticky top-20 w-full h-20">
+          <ProductFilter
+            setFilteredBrands={setFilteredBrands}
+            setFilteredOthers={setFilteredOthers}
+            filteredOthers={filteredOthers}
+            filteredBrands={filteredBrands}
+          />
+        </div>
       </div>
-      <div className="mt-5 basis-4/5 grow-0 shrink-0 justify-items-center">
+      <div className="mt-5 w-3/4 h-[calc(100vh-5.75rem)] sticky top-16 overflow-y-scroll overscroll-contain justify-items-center">
         {filteredBrands.length === 0 && filteredOthers.length === 0
           ? ProductContainer(data)
           : ProductContainer(displayedProducts)}

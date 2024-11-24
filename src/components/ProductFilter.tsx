@@ -58,7 +58,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
     }
   };
   return (
-    <div className="w-full h-full pl-16 border-r-2">
+    <div className="w-full h-full pl-24">
       <div className="text-xl mb-3 font-semibold">Brand</div>
       <Form onChange={handleCheckedFilter}>
         <Form.Group className="mb-5" controlId="brandFilterForm">

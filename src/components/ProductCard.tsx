@@ -10,7 +10,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   //   const price = props.product.Price.toString();
   //   const displayName =
   return (
-    <div className="">
+    <div>
       <div key={props.product.documentId}>
         <CldImage
           priority={true}
