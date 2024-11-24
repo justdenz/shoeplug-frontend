@@ -41,7 +41,6 @@ const Product = () => {
   });
 
   useEffect(() => {
-    console.log("CHANGE");
     getFilteredProducts();
   }, [filteredBrands, filteredOthers, getFilteredProducts]);
 
@@ -51,7 +50,7 @@ const Product = () => {
   return (
     <div className="flex flex-row w-full">
       <div className="w-1/5 mr-5 mt-5">
-        <div className="sticky top-20 w-full h-20">
+        <div className="fixed top-32">
           <ProductFilter
             setFilteredBrands={setFilteredBrands}
             setFilteredOthers={setFilteredOthers}
@@ -60,7 +59,7 @@ const Product = () => {
           />
         </div>
       </div>
-      <div className="mt-5 w-3/4 h-[calc(100vh-5.75rem)] sticky top-16 overflow-y-scroll overscroll-contain justify-items-center">
+      <div className="mt-32 w-3/4 justify-items-center">
         {filteredBrands.length === 0 && filteredOthers.length === 0
           ? ProductContainer(data)
           : ProductContainer(displayedProducts)}

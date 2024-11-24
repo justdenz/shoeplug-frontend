@@ -5,7 +5,7 @@ import { CldImage } from "next-cloudinary";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex justify-between items-center p-3 bg-black text-white sticky top-0 w-full">
+    <header className="flex justify-between items-center p-3 bg-black text-white fixed top-0 w-full">
       <nav>
         <ul className="mt-2 flex space-x-10 text-xl">
           <li key={"home"}>
