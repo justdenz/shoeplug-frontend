@@ -2,6 +2,7 @@
 
 import React from "react";
 import { CldImage } from "next-cloudinary";
+import FormText from "./FormText";
 
 const Header: React.FC = () => {
   return (
@@ -36,6 +37,9 @@ const Header: React.FC = () => {
           height={60}
           className="absolute left-0 right-0 top-2 m-auto rounded-full"
         />
+      </div>
+      <div className="w-1/5">
+        <FormText />
       </div>
     </header>
   );

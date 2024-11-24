@@ -59,7 +59,7 @@ const Product = () => {
           />
         </div>
       </div>
-      <div className="mt-32 w-3/4 justify-items-center">
+      <div className="mt-32 min-h-[calc(100vh-5.75rem)] w-3/4 justify-items-center">
         {filteredBrands.length === 0 && filteredOthers.length === 0
           ? ProductContainer(data)
           : ProductContainer(displayedProducts)}
