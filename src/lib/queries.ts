@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const GET_ALL_PRODUCTS = gql`
-  query Shoes {
-    shoes {
+  query Shoes($pagination: PaginationArg) {
+    shoes(pagination: $pagination) {
       model
       brand {
         brand_name
@@ -50,7 +50,7 @@ const GetFilteredVariables = (
   if (filteredBrands.length > 0 && filteredOthers.length === 0) {
     return {
       pagination: {
-        limit: 10,
+        limit: 20,
       },
       filters: {
         brand: {
@@ -65,7 +65,7 @@ const GetFilteredVariables = (
   if (filteredBrands.length === 0 && filteredOthers.length > 0) {
     return {
       pagination: {
-        limit: 10,
+        limit: 20,
       },
       filters: {
         is_used: {
@@ -77,7 +77,7 @@ const GetFilteredVariables = (
 
   const variables = {
     pagination: {
-      limit: 10,
+      limit: 20,
     },
     filters: {
       brand: {

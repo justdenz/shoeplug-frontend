@@ -1,89 +1,55 @@
-import { useQuery, useLazyQuery } from "@apollo/client";
-import { IProduct, IShoes } from "@/models/Product";
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
-import {
-  GET_ALL_PRODUCTS,
-  GET_FILTERED_PRODUCTS,
-  GetFilteredVariables,
-} from "@/lib/queries";
+import Paginator from "@/components/Paginator";
+import NoSsr from "./NoSsr";
 
-const ProductContainer = (products: IShoes) => {
+interface ProductProps {
+  allProducts: IShoe[];
+  allBrands: string[];
+  page: number;
+}
+
+const ProductContainer = (products: IShoe[]) => {
   return (
     <div className="flex">
       <div className="flex flex-row flex-wrap justify-center gap-5">
-        {products.shoes &&
-          products.shoes.map((product: IProduct) => {
-            return <ProductCard key={product.documentId} product={product} />;
+        {products &&
+          products.map((product: IShoe) => {
+            return <ProductCard key={product.shoe_id} product={product} />;
           })}
       </div>
     </div>
   );
 };
 
-const Product = ({ query }: { query: string }) => {
-  const [displayedProducts, setDisplayedProducts] = useState<IShoes>({
-    shoes: [],
-  });
+const Product: React.FC<ProductProps> = (props: ProductProps) => {
+  const startIndex = props.page !== 1 ? props.page + 11 * (props.page - 1) : 1;
+  const shoes = props.allProducts.slice(startIndex, startIndex + 11);
+
   const [filteredBrands, setFilteredBrands] = useState<string[]>([]);
   const [filteredOthers, setFilteredOthers] = useState<boolean[]>([]);
 
-  const { loading, data, error } = useQuery(GET_ALL_PRODUCTS);
-
-  const [getFilteredProducts, {}] = useLazyQuery(GET_FILTERED_PRODUCTS, {
-    variables: GetFilteredVariables(filteredBrands, filteredOthers),
-    onCompleted: (data) => {
-      if (data) {
-        setDisplayedProducts(data);
-      }
-    },
-  });
-
-  const [getSearchProducts, {}] = useLazyQuery(GET_FILTERED_PRODUCTS, {
-    variables: {
-      filters: {
-        search_tag: {
-          contains: query,
-        },
-      },
-    },
-    onCompleted: (data) => {
-      if (data) {
-        setDisplayedProducts(data);
-      }
-    },
-  });
-  useEffect(() => {
-    if (query !== "") {
-      getSearchProducts();
-    }
-  }, [query, getSearchProducts]);
-  useEffect(() => {
-    getFilteredProducts();
-  }, [filteredBrands, filteredOthers, getFilteredProducts]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>error</p>;
-
   return (
-    <div className="flex flex-row w-full">
-      <div className="w-1/5 mr-5 mt-5">
-        <div className="fixed top-32">
-          <ProductFilter
-            setFilteredBrands={setFilteredBrands}
-            setFilteredOthers={setFilteredOthers}
-            filteredOthers={filteredOthers}
-            filteredBrands={filteredBrands}
-          />
+    <NoSsr>
+      <div className="flex flex-row w-full">
+        <div className="w-1/5 mr-5 mt-5">
+          <div className="sticky top-32">
+            <ProductFilter
+              setFilteredBrands={setFilteredBrands}
+              setFilteredOthers={setFilteredOthers}
+              filteredOthers={filteredOthers}
+              filteredBrands={filteredBrands}
+              allBrands={props.allBrands}
+            />
+          </div>
+        </div>
+        <div className="mt-32 min-h-[calc(100vh-5.75rem)] w-4/5 justify-items-center">
+          {ProductContainer(shoes)}
+          <Paginator page={props.page} />
         </div>
       </div>
-      <div className="mt-32 min-h-[calc(100vh-5.75rem)] w-3/4 justify-items-center">
-        {displayedProducts.shoes.length === 0
-          ? ProductContainer(data)
-          : ProductContainer(displayedProducts)}
-      </div>
-    </div>
+    </NoSsr>
   );
 };
 

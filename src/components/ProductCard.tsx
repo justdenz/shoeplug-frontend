@@ -1,14 +1,14 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
-import { IProduct } from "@/models/Product";
+import { IShoe } from "@/models/Product";
 interface ProductCardProps {
-  product: IProduct;
+  product: IShoe;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   return (
     <div>
-      <div key={props.product.documentId}>
+      <div key={props.product.shoe_id}>
         <CldImage
           priority={true}
           width={300}
@@ -20,18 +20,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         />
       </div>
       <div className="flex flex-row justify-between text-lg font-bold">
-        <div className="">
-          {props.product.model + " " + props.product.colorway}
-        </div>
+        <div className="">{props.product.model}</div>
         <div className="font-bold">{"₱" + props.product.price}</div>
       </div>
       <div className="flex flex-row justify-between">
-        <div className="text-gray-400">{props.product.brand.brand_name}</div>
-        {props.product.is_used ? (
-          <div className="text-orange-500">Used</div>
-        ) : (
-          <div className="text-green-500">Brand New</div>
-        )}
+        <div className="text-gray-400">PLACEHOLDER</div>
+        <div className="text-orange-500">{props.product.condition}</div>
       </div>
     </div>
   );
