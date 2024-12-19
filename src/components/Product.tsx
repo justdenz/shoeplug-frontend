@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
-import Paginator from "@/components/Paginator";
+import PaginationBasic from "@/components/Paginator";
 import NoSsr from "./NoSsr";
 import { IShoe } from "@/models/Product";
 
@@ -28,8 +28,10 @@ const ProductContainer = (products: IShoe[]) => {
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex = props.page !== 1 ? props.page + 11 * (props.page - 1) : 1;
   let shoes;
+  let totalPages;
 
   if (props.searchItem === "") {
+    totalPages = props.allProducts.length / 11;
     shoes = props.allProducts.slice(startIndex, startIndex + 11);
   } else {
     shoes = props.allProducts.filter((product) =>
@@ -42,9 +44,9 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
 
   return (
     <NoSsr>
-      <div className="flex flex-row w-full">
-        <div className="w-1/5 mr-5 mt-5">
-          <div className="sticky top-32">
+      <div className="flex flex-col items-center">
+        <div className="w-3/4 mt-10 -z-50">
+          <div className="w-1/4">
             <ProductFilter
               setFilteredBrands={setFilteredBrands}
               setFilteredOthers={setFilteredOthers}
@@ -54,10 +56,12 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
             />
           </div>
         </div>
-        <div className="mt-32 min-h-[calc(100vh-5.75rem)] w-4/5 justify-items-center">
-          {ProductContainer(shoes)}
-          <Paginator page={props.page} />
+        <div className="w-3/4">
+          <div className="min-h-[calc(100vh-5.75rem)]">
+            {ProductContainer(shoes)}
+          </div>
         </div>
+        <PaginationBasic page={props.page} totalPages={totalPages} />
       </div>
     </NoSsr>
   );

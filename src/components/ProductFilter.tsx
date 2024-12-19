@@ -50,10 +50,9 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   const handleCheckedFilter = (e) => {};
 
   return (
-    <div className="w-full h-full pl-24">
+    <div className="">
       <Form
         onSubmit={(e) => {
-          e.target.reset();
           e.preventDefault();
           handleSearch();
         }}
@@ -78,7 +77,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
             </Button>
           </InputGroup>
         </Form.Group>
-        <Form.Group className="mb-4" controlId="brandFilterForm">
+        {/* <Form.Group className="mb-4" controlId="brandFilterForm">
           <div className="text-xl my-3 font-semibold">Brand</div>
           {props.allBrands.map((brand: string) => {
             return (
@@ -110,7 +109,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
             type="checkbox"
             id={"used"}
           />
-        </Form.Group>
+        </Form.Group> */}
       </Form>
     </div>
   );

@@ -5,7 +5,7 @@ import { CldImage } from "next-cloudinary";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex justify-between items-center p-3 bg-black text-white fixed top-0 w-full">
+    <header className="flex justify-between items-center p-3 bg-black text-white sticky top-0">
       <div className="logo ml-5">
         <a href={"/"}>
           <CldImage

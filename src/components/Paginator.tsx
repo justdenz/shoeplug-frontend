@@ -1,8 +1,7 @@
 import Pagination from "react-bootstrap/Pagination";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
-const PaginationBasic = ({ page }) => {
+const PaginationBasic = ({ page, totalPages }) => {
   const items = [];
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -19,7 +18,7 @@ const PaginationBasic = ({ page }) => {
     replace(`${pathname}?${params.toString()}`);
   }
 
-  for (let number = 1; number <= 5; number++) {
+  for (let number = 1; number <= totalPages; number++) {
     items.push(
       <Pagination.Item
         key={number}
@@ -33,7 +32,9 @@ const PaginationBasic = ({ page }) => {
 
   return (
     <div>
-      <Pagination size="lg">{items}</Pagination>
+      <Pagination className="mt-5" size="lg">
+        {items}
+      </Pagination>
     </div>
   );
 };
