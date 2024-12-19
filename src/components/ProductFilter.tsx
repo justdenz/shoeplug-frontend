@@ -32,6 +32,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
     const params = new URLSearchParams(searchParams);
     if (searchText !== "") {
       params.set("query", searchText.trim());
+      params.delete("page");
     } else {
       params.delete("query");
     }

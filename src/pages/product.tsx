@@ -16,12 +16,18 @@ export async function getServerSideProps() {
 export default function Page(props) {
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
+  const searchItem = (search && search.get("query")) || "";
 
   const rows = props.response.shoes;
   const brands = props.response.brands;
   return (
     <div>
-      <Product allProducts={rows} allBrands={brands} page={+page} />
+      <Product
+        allProducts={rows}
+        allBrands={brands}
+        page={+page}
+        searchItem={searchItem}
+      />
     </div>
   );
 }

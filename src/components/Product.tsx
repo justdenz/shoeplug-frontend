@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 import Paginator from "@/components/Paginator";
 import NoSsr from "./NoSsr";
+import { IShoe } from "@/models/Product";
 
 interface ProductProps {
   allProducts: IShoe[];
   allBrands: string[];
   page: number;
+  searchItem: string;
 }
 
 const ProductContainer = (products: IShoe[]) => {
@@ -25,7 +27,15 @@ const ProductContainer = (products: IShoe[]) => {
 
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex = props.page !== 1 ? props.page + 11 * (props.page - 1) : 1;
-  const shoes = props.allProducts.slice(startIndex, startIndex + 11);
+  let shoes;
+
+  if (props.searchItem === "") {
+    shoes = props.allProducts.slice(startIndex, startIndex + 11);
+  } else {
+    shoes = props.allProducts.filter((product) =>
+      product.model.includes(props.searchItem)
+    );
+  }
 
   const [filteredBrands, setFilteredBrands] = useState<string[]>([]);
   const [filteredOthers, setFilteredOthers] = useState<boolean[]>([]);

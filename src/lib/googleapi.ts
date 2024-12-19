@@ -48,7 +48,7 @@ export async function getGoogleSheetsData() {
 
   const sheetData = {
     shoes: shoeArray,
-    brands: brandCol[0],
+    brands: brandCol![0],
   };
 
   return sheetData;
@@ -74,5 +74,5 @@ export async function getBrands() {
 
   const rows = res.data.values;
 
-  return rows[0];
+  return rows![0];
 }

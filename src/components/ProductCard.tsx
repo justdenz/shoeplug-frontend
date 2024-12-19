@@ -7,7 +7,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   return (
-    <div>
+    <div className="w-[300px]">
       <div key={props.product.shoe_id}>
         <CldImage
           priority={true}
@@ -19,12 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           alt="Logo"
         />
       </div>
-      <div className="flex flex-row justify-between text-lg font-bold">
-        <div className="">{props.product.model}</div>
-        <div className="font-bold">{"₱" + props.product.price}</div>
+      <div className="flex flex-col justify-between font-bold">
+        <div className="text-ellipsis overflow-hidden text-base">
+          {props.product.model}
+        </div>
       </div>
       <div className="flex flex-row justify-between">
-        <div className="text-gray-400">PLACEHOLDER</div>
+        <div className="font-bold">{"₱" + props.product.price}</div>
         <div className="text-orange-500">{props.product.condition}</div>
       </div>
     </div>

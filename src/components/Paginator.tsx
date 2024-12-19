@@ -3,17 +3,16 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const PaginationBasic = ({ page }) => {
-  const [activePage, setActivePage] = useState(1);
   const items = [];
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  console.log(page);
+
   function handlePageSelect(number: number) {
-    setActivePage(number);
     const params = new URLSearchParams(searchParams);
     if (number) {
       params.set("page", number.toString());
+      params.delete("query");
     } else {
       params.delete("page");
     }
