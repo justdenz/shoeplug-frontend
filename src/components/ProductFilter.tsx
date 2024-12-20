@@ -1,12 +1,10 @@
 import React, { useState, ChangeEvent } from "react";
-import { useQuery } from "@apollo/client";
-import { IBrand } from "@/models/Brand";
 import Form from "react-bootstrap/Form";
-import { GET_BRANDS } from "@/lib/queries";
 import { Search } from "react-bootstrap-icons";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Dropdown from "react-bootstrap/Dropdown";
 interface ProductFilterProps {
   setFilteredBrands: (Array: string[]) => void;
   setFilteredOthers: (Array: boolean[]) => void;
@@ -33,6 +31,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
     if (searchText !== "") {
       params.set("query", searchText.trim());
       params.delete("page");
+      params.delete("filter");
     } else {
       params.delete("query");
     }
@@ -57,6 +56,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
           handleSearch();
         }}
         onChange={handleCheckedFilter}
+        className="flex flex-row gap-5"
       >
         <Form.Group className="mb-4" controlId="searchFilterForm">
           <InputGroup>
@@ -77,39 +77,19 @@ const ProductFilter: React.FC<ProductFilterProps> = (
             </Button>
           </InputGroup>
         </Form.Group>
-        {/* <Form.Group className="mb-4" controlId="brandFilterForm">
-          <div className="text-xl my-3 font-semibold">Brand</div>
-          {props.allBrands.map((brand: string) => {
-            return (
-              <Form.Check
-                className="text-lg"
-                key={brand}
-                label={brand}
-                name="brand_group"
-                type="checkbox"
-                id={brand}
-              />
-            );
-          })}
+        <Form.Group className="mb-4" controlId="brandFilterForm">
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Dropdown Button
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="?filter=nike">Nike</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Form.Group>
-        <div className="h-px w-full bg-gray-300 mb-3"></div>
-        <Form.Group controlId="isUsedFilterForm">
-          <div className="text-xl mb-3 font-semibold">Used</div>
-          <Form.Check
-            className="text-lg"
-            label={"Brand New"}
-            name="is_used_group"
-            type="checkbox"
-            id={"brand_new"}
-          />
-          <Form.Check
-            className="text-lg"
-            label={"Used"}
-            name="is_used_group"
-            type="checkbox"
-            id={"used"}
-          />
-        </Form.Group> */}
       </Form>
     </div>
   );

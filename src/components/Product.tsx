@@ -31,11 +31,11 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   let totalPages;
 
   if (props.searchItem === "") {
-    totalPages = props.allProducts.length / 11;
-    shoes = props.allProducts.slice(startIndex, startIndex + 11);
+    totalPages = props.allProducts.length / 10;
+    shoes = props.allProducts.slice(startIndex, startIndex + 10);
   } else {
     shoes = props.allProducts.filter((product) =>
-      product.model.includes(props.searchItem)
+      product.model.toLowerCase().includes(props.searchItem.toLocaleLowerCase())
     );
   }
 
@@ -45,16 +45,14 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   return (
     <NoSsr>
       <div className="flex flex-col items-center">
-        <div className="w-3/4 mt-10 -z-50">
-          <div className="w-1/4">
-            <ProductFilter
-              setFilteredBrands={setFilteredBrands}
-              setFilteredOthers={setFilteredOthers}
-              filteredOthers={filteredOthers}
-              filteredBrands={filteredBrands}
-              allBrands={props.allBrands}
-            />
-          </div>
+        <div className="w-3/4 mt-10 z-1">
+          <ProductFilter
+            setFilteredBrands={setFilteredBrands}
+            setFilteredOthers={setFilteredOthers}
+            filteredOthers={filteredOthers}
+            filteredBrands={filteredBrands}
+            allBrands={props.allBrands}
+          />
         </div>
         <div className="w-3/4">
           <div className="min-h-[calc(100vh-5.75rem)]">

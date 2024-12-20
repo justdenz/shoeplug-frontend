@@ -1,8 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Product from "@/components/Product";
-import { getBrands, getGoogleSheetsData } from "@/lib/googleapi";
+import { getGoogleSheetsData } from "@/lib/googleapi";
 import { useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
