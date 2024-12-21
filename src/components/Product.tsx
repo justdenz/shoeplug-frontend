@@ -17,7 +17,7 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex =
     props.page !== 1 ? props.page + PAGE_SIZE + 1 * (props.page - 1) : 1;
   let shoes;
-  let totalPages;
+  let totalPages = 0;
 
   if (props.filter !== "") {
     shoes = props.allProducts.filter((product) =>

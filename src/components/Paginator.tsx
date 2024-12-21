@@ -1,7 +1,13 @@
 import Pagination from "react-bootstrap/Pagination";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import React from "react";
 
-const PaginationBasic = ({ page, totalPages }) => {
+interface PaginationProps {
+  page: number;
+  totalPages: number;
+}
+
+const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
   const items = [];
   const searchParams = useSearchParams();
   const pathname = usePathname();
