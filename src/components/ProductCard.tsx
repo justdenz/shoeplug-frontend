@@ -6,6 +6,21 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
+  const conditionElement = () => {
+    if (props.product.condition === "BNDS") {
+      return <div className="text-green-500">Brand New</div>;
+    }
+
+    if (props.product.condition === "GAN") {
+      return <div className="text-sky-400">Good as new</div>;
+    }
+
+    if (props.product.condition === "USED") {
+      return <div className="text-yellow-500">Used</div>;
+    }
+
+    return <div className="text-green-500">BRAND NEW</div>;
+  };
   return (
     <div className="w-[300px]">
       <div key={props.product.shoe_id}>
@@ -19,14 +34,15 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           alt="Logo"
         />
       </div>
-      <div className="flex flex-col justify-between font-bold">
+      <div className="flex flex-row justify-between font-bold">
         <div className="text-ellipsis overflow-hidden text-base">
           {props.product.model}
         </div>
       </div>
+      <div className="font-medium">{"Size: " + props.product.size}</div>
       <div className="flex flex-row justify-between">
         <div className="font-bold">{"₱" + props.product.price}</div>
-        <div className="text-orange-500">{props.product.condition}</div>
+        {conditionElement()}
       </div>
     </div>
   );

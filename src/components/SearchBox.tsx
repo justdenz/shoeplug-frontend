@@ -44,6 +44,7 @@ const SearchBox = () => {
         <Form.Group controlId="searchFilterForm">
           <InputGroup>
             <Form.Control
+              className="h-12"
               type="text"
               placeholder="Search a shoe item..."
               aria-describedby="input item to search here"

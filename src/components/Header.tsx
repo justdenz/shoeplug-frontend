@@ -18,7 +18,7 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <div className="basis-1/6">
+      <div className="basis-1/5 mr-5">
         <SearchBox />
       </div>
       {/* <nav>

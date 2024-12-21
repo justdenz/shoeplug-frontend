@@ -36,8 +36,11 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   return (
     <NoSsr>
       <div className="flex flex-col items-center">
-        <div className="mt-10 h-14 w-3/5 relative">
-          <ProductFilter allBrands={props.allBrands} />
+        <div className="mt-10 h-14 w-3/4 ml-48 relative">
+          <ProductFilter
+            allBrands={props.allBrands}
+            activeFilter={props.filter}
+          />
         </div>
         <div className="w-3/4 mb-5">
           <div className="min-h-[calc(100vh-5.75rem)]">
