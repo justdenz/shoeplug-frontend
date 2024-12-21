@@ -2,11 +2,9 @@ import { google } from "googleapis";
 import { IShoe } from "@/models/Product";
 
 export async function getGoogleSheetsData() {
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    },
+  const auth = new google.auth.JWT({
+    email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    key: process.env.GOOGLE_PRIVATE_KEY,
     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
   });
 
