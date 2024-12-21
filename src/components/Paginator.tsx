@@ -32,9 +32,7 @@ const PaginationBasic = ({ page, totalPages }) => {
 
   return (
     <div>
-      <Pagination className="mt-5" size="lg">
-        {items}
-      </Pagination>
+      <Pagination size="lg">{items}</Pagination>
     </div>
   );
 };

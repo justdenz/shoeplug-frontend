@@ -16,6 +16,7 @@ export default function Page(props) {
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
   const searchItem = (search && search.get("query")) || "";
+  const filter = (search && search.get("filter")) || "";
 
   const rows = props.response.shoes;
   const brands = props.response.brands;
@@ -26,6 +27,7 @@ export default function Page(props) {
         allBrands={brands}
         page={+page}
         searchItem={searchItem}
+        filter={filter}
       />
     </div>
   );

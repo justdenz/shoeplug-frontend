@@ -2,10 +2,11 @@
 
 import React from "react";
 import { CldImage } from "next-cloudinary";
+import SearchBox from "./SearchBox";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex justify-between items-center p-3 bg-black text-white sticky top-0 z-20">
+    <header className="flex flex-row h-20 justify-between items-center bg-black text-white sticky top-0 z-10">
       <div className="logo ml-5">
         <a href={"/"}>
           <CldImage
@@ -17,8 +18,11 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <nav>
-        <ul className="mt-2 mr-28 flex space-x-5 text-xl">
+      <div className="basis-1/6">
+        <SearchBox />
+      </div>
+      {/* <nav>
+        <ul className="mt-2 flex space-x-5 text-xl">
           <li key={"home"}>
             <a href={"/"} className="text-white no-underline hover:underline">
               Home
@@ -38,7 +42,7 @@ const Header: React.FC = () => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </header>
   );
 };

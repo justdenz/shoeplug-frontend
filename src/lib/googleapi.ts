@@ -11,14 +11,14 @@ export async function getGoogleSheetsData() {
   });
 
   const sheets = google.sheets({ version: "v4", auth: await auth.getClient() });
-  const rangeShoes = "Shoes!A2:H100";
+  const rangeShoes = "Shoes!A2:I100";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range: rangeShoes,
   });
 
-  const rangeBrands = "Brands!A1:A5";
+  const rangeBrands = "Brands!A1:A50";
 
   const resBrands = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
@@ -42,6 +42,7 @@ export async function getGoogleSheetsData() {
       price: row[5],
       status: row[6],
       image_url: row[7],
+      brand: row[8],
     };
     shoeArray.push(tempShoe);
   });
