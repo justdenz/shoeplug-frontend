@@ -11,7 +11,7 @@ interface FormTextProps {
 const FormText: React.FC<FormTextProps> = (props: FormTextProps) => {
   const [searchText, setSearchText] = useState<string>("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
   const submitSearchFilter = () => {
