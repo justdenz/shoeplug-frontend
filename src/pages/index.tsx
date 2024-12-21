@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Product from "@/components/Product";
 import { getGoogleSheetsData } from "@/lib/googleapi";
 import { useSearchParams } from "next/navigation";
+import { IShoe } from "@/models/Product";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
@@ -13,7 +14,7 @@ export async function getServerSideProps() {
 }
 
 export default function Page(props: {
-  response: { shoes: string; brands: string };
+  response: { shoes: IShoe[]; brands: string[] };
 }) {
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
