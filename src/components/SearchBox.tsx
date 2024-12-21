@@ -29,6 +29,7 @@ const SearchBox = () => {
     setSearchText("");
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleKeyPress = (event: { key: any }) => {
     if (event.key === "Enter") return handleSearch();
   };
