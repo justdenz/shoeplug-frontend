@@ -10,7 +10,7 @@ export async function getGoogleSheetsData() {
     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
   });
 
-  const sheets = google.sheets({ version: "v4", auth: await auth.getClient() });
+  const sheets = google.sheets({ version: "v4", auth: auth });
   const rangeShoes = "Shoes!A2:I100";
 
   const resShoes = await sheets.spreadsheets.values.get({
@@ -53,27 +53,4 @@ export async function getGoogleSheetsData() {
   };
 
   return sheetData;
-}
-
-export async function getBrands() {
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    },
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-  });
-
-  const sheets = google.sheets({ version: "v4", auth: await auth.getClient() });
-  const range = "Brands!A1:A5";
-
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.SHEET_ID,
-    range: range,
-    majorDimension: "COLUMNS",
-  });
-
-  const rows = res.data.values;
-
-  return rows![0];
 }

@@ -12,7 +12,9 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Page(props) {
+export default function Page(props: {
+  response: { shoes: string; brands: string };
+}) {
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
   const searchItem = (search && search.get("query")) || "";
