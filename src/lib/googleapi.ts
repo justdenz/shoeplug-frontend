@@ -6,7 +6,9 @@ export async function getGoogleSheetsData() {
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       client_id: process.env.CLIENT_ID,
-      private_key: process.env.GOOGLE_PRIVATE_KEY,
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.split(String.raw`\n`).join(
+        "\n"
+      ),
     },
 
     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
