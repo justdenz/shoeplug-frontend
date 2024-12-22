@@ -7,11 +7,11 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const conditionElement = () => {
-    if (props.product.condition === "BNDS") {
+    if (props.product.condition === "BRAND_NEW") {
       return <div className="text-green-500">Brand New</div>;
     }
 
-    if (props.product.condition === "GAN") {
+    if (props.product.condition === "GOOD_AS_NEW") {
       return <div className="text-sky-400">Good as new</div>;
     }
 

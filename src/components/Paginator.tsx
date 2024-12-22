@@ -17,7 +17,6 @@ const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set("page", value.toString());
-      params.delete("query");
     } else {
       params.delete("page");
     }

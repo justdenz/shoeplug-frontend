@@ -17,7 +17,7 @@ interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
-  const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE + 1 : 1;
+  const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE : 0;
   const endIndex = props.page * PAGE_SIZE;
   console.log("START INDEX: " + startIndex);
   console.log("END INDEX: " + endIndex);
@@ -39,14 +39,13 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
           props.filter.condition.toLowerCase()
       );
     }
-  } else if (props.searchItem === "") {
-    totalPages = Math.ceil(props.allProducts.length / PAGE_SIZE);
-    shoes = props.allProducts.slice(startIndex, endIndex + 1);
-  } else {
+  } else if (props.searchItem !== "") {
     shoes = props.allProducts.filter((product) =>
       product.model.toLowerCase().includes(props.searchItem.toLocaleLowerCase())
     );
   }
+  totalPages = Math.ceil(shoes.length / PAGE_SIZE);
+  shoes = shoes.slice(startIndex, endIndex);
 
   return (
     <NoSsr>
