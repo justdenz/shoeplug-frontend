@@ -89,6 +89,7 @@ export default function SearchAppBar() {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          value={searchText}
         />
       </Search>
     </Form>

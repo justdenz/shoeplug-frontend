@@ -3,6 +3,8 @@ import Product from "@/components/Product";
 import { getGoogleSheetsData } from "@/lib/googleapi";
 import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
+import Router from "next/router";
+import React from "react";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
@@ -16,6 +18,24 @@ export async function getServerSideProps() {
 export default function Page(props: {
   response: { shoes: IShoe[]; brands: string[] };
 }) {
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
   const searchItem = (search && search.get("query")) || "";
@@ -28,13 +48,17 @@ export default function Page(props: {
   const brands = props.response.brands;
   return (
     <div>
-      <Product
-        allProducts={rows}
-        allBrands={brands}
-        page={+page}
-        searchItem={searchItem}
-        filter={filter}
-      />
+      {loading ? (
+        <div className="min-h-[calc(100vh-5.75rem)]">Loading...</div>
+      ) : (
+        <Product
+          allProducts={rows}
+          allBrands={brands}
+          page={+page}
+          searchItem={searchItem}
+          filter={filter}
+        />
+      )}
     </div>
   );
 }
