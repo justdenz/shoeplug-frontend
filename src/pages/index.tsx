@@ -19,7 +19,10 @@ export default function Page(props: {
   const search = useSearchParams();
   const page = (search && search.get("page")) || 1;
   const searchItem = (search && search.get("query")) || "";
-  const filter = (search && search.get("filter")) || "";
+  const filter = {
+    brand: (search && search.get("brand")) || "",
+    condition: (search && search.get("condition")) || "",
+  };
 
   const rows = props.response.shoes;
   const brands = props.response.brands;

@@ -1,6 +1,7 @@
-import Pagination from "react-bootstrap/Pagination";
+// import Pagination from "react-bootstrap/Pagination";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React from "react";
+import Pagination from "@mui/material/Pagination";
 
 interface PaginationProps {
   page: number;
@@ -8,15 +9,14 @@ interface PaginationProps {
 }
 
 const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
-  const items = [];
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handlePageSelect(number: number) {
+  function handlePageSelect(event: unknown, value: { toString: () => string }) {
     const params = new URLSearchParams(searchParams);
-    if (number) {
-      params.set("page", number.toString());
+    if (value) {
+      params.set("page", value.toString());
       params.delete("query");
     } else {
       params.delete("page");
@@ -24,21 +24,14 @@ const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
     replace(`${pathname}?${params.toString()}`);
   }
 
-  for (let number = 1; number <= totalPages; number++) {
-    items.push(
-      <Pagination.Item
-        key={number}
-        active={number === page}
-        onClick={() => handlePageSelect(number)}
-      >
-        {number}
-      </Pagination.Item>
-    );
-  }
-
   return (
     <div>
-      <Pagination size="lg">{items}</Pagination>
+      <Pagination
+        count={Math.floor(totalPages)}
+        page={page}
+        onChange={handlePageSelect}
+        size="large"
+      />
     </div>
   );
 };

@@ -10,19 +10,33 @@ interface ProductProps {
   allBrands: string[];
   page: number;
   searchItem: string;
-  filter: string;
+  filter: {
+    brand: string;
+    condition: string;
+  };
 }
 
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex =
     props.page !== 1 ? props.page + PAGE_SIZE + 1 * (props.page - 1) : 1;
-  let shoes;
+  let shoes = props.allProducts;
   let totalPages = 0;
 
-  if (props.filter !== "") {
-    shoes = props.allProducts.filter((product) =>
-      product.brand.toLowerCase().includes(props.filter.toLocaleLowerCase())
-    );
+  if (props.filter.brand !== "" || props.filter.condition !== "") {
+    if (props.filter.brand !== "") {
+      shoes = shoes.filter(
+        (product) =>
+          product.brand.toLowerCase() === props.filter.brand.toLowerCase()
+      );
+    }
+
+    if (props.filter.condition !== "") {
+      shoes = shoes.filter(
+        (product) =>
+          product.condition.toLowerCase() ===
+          props.filter.condition.toLowerCase()
+      );
+    }
   } else if (props.searchItem === "") {
     totalPages = props.allProducts.length / PAGE_SIZE;
     shoes = props.allProducts.slice(startIndex, startIndex + PAGE_SIZE);
@@ -35,15 +49,15 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   return (
     <NoSsr>
       <div className="flex flex-col items-center">
-        <div className="mt-10 h-14 w-3/4 ml-48 relative">
-          <ProductFilter
-            allBrands={props.allBrands}
-            activeFilter={props.filter}
-          />
-        </div>
-        <div className="w-3/4 mb-5">
+        <div className="mb-5">
+          <div className="my-4">
+            <ProductFilter
+              allBrands={props.allBrands}
+              activeFilter={props.filter.brand}
+            />
+          </div>
           <div className="min-h-[calc(100vh-5.75rem)]">
-            <div className="flex flex-row flex-wrap justify-center gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  place-items-center gap-5">
               {shoes &&
                 shoes.map((product: IShoe) => {
                   return (

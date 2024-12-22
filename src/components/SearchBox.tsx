@@ -21,7 +21,8 @@ const SearchBox = () => {
     if (searchText !== "") {
       params.set("query", searchText.trim());
       params.delete("page");
-      params.delete("filter");
+      params.delete("brand");
+      params.delete("condition");
     } else {
       params.delete("query");
     }

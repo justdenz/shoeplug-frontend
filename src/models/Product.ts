@@ -9,3 +9,8 @@ export interface IShoe {
   image_url: string;
   brand: string;
 }
+
+export type ProductFilterObj = {
+  brand: string;
+  condition: string;
+};
