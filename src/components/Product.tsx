@@ -17,8 +17,10 @@ interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
-  const startIndex =
-    props.page !== 1 ? props.page + PAGE_SIZE + 1 * (props.page - 1) : 1;
+  const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE + 1 : 1;
+  const endIndex = props.page * PAGE_SIZE;
+  console.log("START INDEX: " + startIndex);
+  console.log("END INDEX: " + endIndex);
   let shoes = props.allProducts;
   let totalPages = 0;
 
@@ -38,8 +40,8 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
       );
     }
   } else if (props.searchItem === "") {
-    totalPages = props.allProducts.length / PAGE_SIZE;
-    shoes = props.allProducts.slice(startIndex, startIndex + PAGE_SIZE);
+    totalPages = Math.ceil(props.allProducts.length / PAGE_SIZE);
+    shoes = props.allProducts.slice(startIndex, endIndex + 1);
   } else {
     shoes = props.allProducts.filter((product) =>
       product.model.toLowerCase().includes(props.searchItem.toLocaleLowerCase())

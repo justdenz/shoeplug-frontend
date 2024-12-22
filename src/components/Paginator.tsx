@@ -27,7 +27,7 @@ const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
   return (
     <div>
       <Pagination
-        count={Math.floor(totalPages)}
+        count={Math.ceil(totalPages)}
         page={page}
         onChange={handlePageSelect}
         size="large"
