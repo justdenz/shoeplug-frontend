@@ -47,27 +47,31 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
 
   return (
     <NoSsr>
-      <div className="flex flex-col items-center">
-        <div className="mb-5">
-          <div className="my-4">
-            <ProductFilter
-              allBrands={props.allBrands}
-              activeFilter={props.filter.brand}
-            />
-          </div>
-          <div className="min-h-[calc(100vh-5.75rem)]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  place-items-center gap-5">
-              {shoes &&
-                shoes.map((product: IShoe) => {
-                  return (
-                    <ProductCard key={product.shoe_id} product={product} />
-                  );
-                })}
+      {shoes.length === 0 ? (
+        <div className="min-h-[calc(100vh-5.75rem)]">empty</div>
+      ) : (
+        <div className="flex flex-col items-center">
+          <div className="mb-5">
+            <div className="my-4">
+              <ProductFilter
+                allBrands={props.allBrands}
+                activeFilter={props.filter.brand}
+              />
+            </div>
+            <div className="min-h-[calc(100vh-5.75rem)]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  place-items-center gap-5">
+                {shoes &&
+                  shoes.map((product: IShoe) => {
+                    return (
+                      <ProductCard key={product.shoe_id} product={product} />
+                    );
+                  })}
+              </div>
             </div>
           </div>
+          <PaginationBasic page={props.page} totalPages={totalPages} />
         </div>
-        <PaginationBasic page={props.page} totalPages={totalPages} />
-      </div>
+      )}
     </NoSsr>
   );
 };
