@@ -18,7 +18,7 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <div className="mr-5">
+      <div className="w-32 md:w-auto mr-5">
         <SearchAppBar />
       </div>
 
