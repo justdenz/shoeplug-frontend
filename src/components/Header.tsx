@@ -3,7 +3,6 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
 import SearchAppBar from "./TestSearch";
-import SearchBox from "./SearchBox";
 
 const Header: React.FC = () => {
   return (
