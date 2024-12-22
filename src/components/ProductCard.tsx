@@ -23,7 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   };
   return (
     <div className="w-[300px]">
-      <div key={props.product.shoe_id}>
+      <div className="rounded overflow-hidden" key={props.product.shoe_id}>
         <CldImage
           priority={true}
           width={300}

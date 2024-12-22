@@ -2,6 +2,7 @@
 
 import React from "react";
 import { CldImage } from "next-cloudinary";
+import SearchAppBar from "./TestSearch";
 import SearchBox from "./SearchBox";
 
 const Header: React.FC = () => {
@@ -18,9 +19,10 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <div className="basis-1/5 mr-5">
-        <SearchBox />
+      <div className="mr-5">
+        <SearchAppBar />
       </div>
+
       {/* <nav>
         <ul className="mt-2 flex space-x-5 text-xl">
           <li key={"home"}>

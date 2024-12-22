@@ -19,8 +19,6 @@ interface ProductProps {
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE : 0;
   const endIndex = props.page * PAGE_SIZE;
-  console.log("START INDEX: " + startIndex);
-  console.log("END INDEX: " + endIndex);
   let shoes = props.allProducts;
   let totalPages = 0;
 
