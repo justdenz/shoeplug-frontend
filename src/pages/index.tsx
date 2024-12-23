@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
 import Router from "next/router";
 import React from "react";
+import Spinner from "@/components/Spinner";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
@@ -48,17 +49,14 @@ export default function Page(props: {
   const brands = props.response.brands;
   return (
     <div>
-      {loading ? (
-        <div className="min-h-[calc(100vh-5.75rem)]">Loading...</div>
-      ) : (
-        <Product
-          allProducts={rows}
-          allBrands={brands}
-          page={+page}
-          searchItem={searchItem}
-          filter={filter}
-        />
-      )}
+      <Product
+        allProducts={rows}
+        allBrands={brands}
+        page={+page}
+        searchItem={searchItem}
+        filter={filter}
+        loading={loading}
+      />
     </div>
   );
 }

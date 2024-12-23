@@ -4,6 +4,8 @@ import PaginationBasic from "@/components/Paginator";
 import NoSsr from "./NoSsr";
 import { IShoe } from "@/models/Product";
 import { PAGE_SIZE } from "@/models/resource";
+import EmptySerach from "./EmptySearch";
+import Spinner from "./Spinner";
 
 interface ProductProps {
   allProducts: IShoe[];
@@ -14,6 +16,7 @@ interface ProductProps {
     brand: string;
     condition: string;
   };
+  loading: boolean;
 }
 
 const Product: React.FC<ProductProps> = (props: ProductProps) => {
@@ -48,27 +51,31 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   return (
     <NoSsr>
       {shoes.length === 0 ? (
-        <div className="min-h-[calc(100vh-5.75rem)]">empty</div>
+        <EmptySerach />
       ) : (
         <div className="flex flex-col items-center">
-          <div className="mb-5">
-            <div className="my-4">
-              <ProductFilter
-                allBrands={props.allBrands}
-                activeFilter={props.filter.brand}
-              />
-            </div>
-            <div className="min-h-[calc(100vh-5.75rem)]">
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  place-items-center gap-5">
-                {shoes &&
-                  shoes.map((product: IShoe) => {
-                    return (
-                      <ProductCard key={product.shoe_id} product={product} />
-                    );
-                  })}
+          {props.loading ? (
+            <Spinner />
+          ) : (
+            <div className="mb-5">
+              <div className="my-4">
+                <ProductFilter
+                  allBrands={props.allBrands}
+                  activeFilter={props.filter.brand}
+                />
+              </div>
+              <div className="min-h-[calc(100vh-5.75rem)]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  place-items-center gap-5">
+                  {shoes &&
+                    shoes.map((product: IShoe) => {
+                      return (
+                        <ProductCard key={product.shoe_id} product={product} />
+                      );
+                    })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <PaginationBasic page={props.page} totalPages={totalPages} />
         </div>
       )}
