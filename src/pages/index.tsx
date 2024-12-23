@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
 import Router from "next/router";
 import React from "react";
-import Spinner from "@/components/Spinner";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
