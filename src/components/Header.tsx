@@ -10,7 +10,7 @@ const Header: React.FC = () => {
       <div className="logo ml-5">
         <a href={"/"}>
           <CldImage
-            src={"logo_ldetnd"}
+            src={"logo_imt5hn"}
             alt="Logo"
             width={70}
             height={60}
