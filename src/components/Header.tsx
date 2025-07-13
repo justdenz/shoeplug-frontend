@@ -21,29 +21,6 @@ const Header: React.FC = () => {
       <div className="w-32 md:w-auto mr-5">
         <SearchAppBar />
       </div>
-
-      {/* <nav>
-        <ul className="mt-2 flex space-x-5 text-xl">
-          <li key={"home"}>
-            <a href={"/"} className="text-white no-underline hover:underline">
-              Home
-            </a>
-          </li>
-          <li key={"product"}>
-            <a
-              href={"/product"}
-              className="text-white no-underline hover:underline"
-            >
-              Products
-            </a>
-          </li>
-          <li key={"about"}>
-            <a href={"/"} className="text-white no-underline hover:underline">
-              About
-            </a>
-          </li>
-        </ul>
-      </nav> */}
     </header>
   );
 };

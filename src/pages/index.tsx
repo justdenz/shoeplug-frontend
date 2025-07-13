@@ -47,7 +47,7 @@ export default function Page(props: {
   const rows = props.response.shoes;
   const brands = props.response.brands;
   return (
-    <div>
+    <div className="min-w-xl justify-self-center">
       <Product
         allProducts={rows}
         allBrands={brands}

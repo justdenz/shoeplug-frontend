@@ -29,11 +29,6 @@ const Footer = () => {
                   Instagram
                 </a>
               </li>
-              {/* <li>
-                <a href="/contact" className="hover:text-gray-400">
-                  Contact Us
-                </a>
-              </li> */}
             </ul>
           </nav>
         </div>

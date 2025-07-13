@@ -22,26 +22,58 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     return <div className="text-green-500">BRAND NEW</div>;
   };
   return (
-    <div className="w-[300px]">
-      <div className="rounded overflow-hidden" key={props.product.shoe_id}>
+    // <div className="w-2xs">
+    //   <div
+    //     className="rounded relative w-60 h-80 overflow-hidden"
+    //     key={props.product.shoe_id}
+    //   >
+    //     <CldImage
+    //       priority={true}
+    //       fill={true}
+    //       sizes="25vw"
+    //       src={props.product.image_url}
+    //       alt="Logo"
+    //       className="object-cover rounded-md"
+    //     />
+    //   </div>
+    //   <div className="w-5/6">
+    //     <div className="flex flex-row justify-between font-bold">
+    //       <div className="text-ellipsis overflow-hidden text-base">
+    //         {props.product.model}
+    //       </div>
+    //     </div>
+    //     <div className="font-medium">{"Size: " + props.product.size}</div>
+    //     <div className="flex flex-row justify-between">
+    //       <div className="font-bold">{"₱" + props.product.price}</div>
+    //       {conditionElement()}
+    //     </div>
+    //   </div>
+    // </div>
+
+    <div className="w-[300px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
+      {/* Image */}
+      <div className="justify-items-center">
         <CldImage
-          priority={true}
-          width={300}
-          height={360}
-          crop="fill"
-          sizes="100vw"
           src={props.product.image_url}
-          alt="Logo"
+          width={300}
+          height={400}
+          alt="KT 2 SPLASH"
+          crop="fill"
+          className="w-auto h-auto object-cover rounded-md"
         />
       </div>
-      <div className="flex flex-row justify-between font-bold">
-        <div className="text-ellipsis overflow-hidden text-base">
-          {props.product.model}
-        </div>
+
+      {/* Product Name */}
+      <div className="text-xl font-semibold mt-1">{props.product.model}</div>
+
+      {/* Size */}
+      <div className="text-xl text-gray-600">
+        {"Size: " + props.product.size}
       </div>
-      <div className="font-medium">{"Size: " + props.product.size}</div>
-      <div className="flex flex-row justify-between">
-        <div className="font-bold">{"₱" + props.product.price}</div>
+
+      {/* Price and Condition */}
+      <div className="flex justify-between items-center text-xl">
+        <div className="text-black font-bold">{"₱" + props.product.price}</div>
         {conditionElement()}
       </div>
     </div>

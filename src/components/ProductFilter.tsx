@@ -45,7 +45,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
   };
   return (
     <div className="capitalize flex flex-row gap-3 place-items-center">
-      <div className="text-lg">Filter: </div>
+      <div className="text-xl">Filter: </div>
       <Dropdown onSelect={(eventKey) => handleSelectBrand(eventKey!)}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
           Brand
