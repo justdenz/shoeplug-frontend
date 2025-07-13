@@ -65,7 +65,7 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
                 />
               </div>
               <div className="min-h-[calc(100vh-5.75rem)]">
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 pb-20">
                   {shoes &&
                     shoes.map((product: IShoe) => {
                       return (
@@ -73,10 +73,10 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
                       );
                     })}
                 </div>
+                <PaginationBasic page={props.page} totalPages={totalPages} />
               </div>
             </div>
           )}
-          <PaginationBasic page={props.page} totalPages={totalPages} />
         </div>
       )}
     </NoSsr>
