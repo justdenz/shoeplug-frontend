@@ -1,5 +1,5 @@
 import React from "react";
-import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 
 const Footer = () => {
   const fbLink = "https://www.facebook.com/profile.php?id=100054236060642";
