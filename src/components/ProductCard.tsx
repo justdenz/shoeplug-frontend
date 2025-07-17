@@ -55,8 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div className="justify-items-center">
         <CldImage
           src={props.product.image_url}
-          width={300}
-          height={400}
+          width={250}
+          height={300}
           alt="KT 2 SPLASH"
           crop="fill"
           className="w-auto h-auto object-cover rounded-md"
