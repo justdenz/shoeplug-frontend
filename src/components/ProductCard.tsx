@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       return <div className="text-yellow-500">Used</div>;
     }
 
-    return <div className="text-green-500">BRAND NEW</div>;
+    return <div className="text-green-500">Brand New</div>;
   };
   return (
     // <div className="w-2xs">
@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     //   </div>
     // </div>
 
-    <div className="w-[300px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
+    <div className="w-[250px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
       <div className="justify-items-center">
         <CldImage
@@ -64,16 +64,16 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
 
       {/* Product Name */}
-      <div className="text-xl font-semibold mt-1">{props.product.model}</div>
+      <div className="text-lg font-semibold mt-1">{props.product.model}</div>
 
       {/* Size */}
-      <div className="text-xl text-gray-600">
+      <div className="text-lg text-gray-600">
         {"Size: " + props.product.size}
       </div>
 
       {/* Price and Condition */}
-      <div className="flex justify-between items-center text-xl">
-        <div className="text-black font-bold">{"₱" + props.product.price}</div>
+      <div className="flex justify-between items-center text-lg font-bold">
+        <div className="text-black">{"₱" + props.product.price}</div>
         {conditionElement()}
       </div>
     </div>
