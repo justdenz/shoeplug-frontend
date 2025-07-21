@@ -50,13 +50,13 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     //   </div>
     // </div>
 
-    <div className="w-[250px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
+    <div className="w-[450px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
       <div className="justify-items-center">
         <CldImage
           src={props.product.image_url}
-          width={250}
-          height={300}
+          width={300}
+          height={350}
           alt="KT 2 SPLASH"
           crop="fill"
           className="w-auto h-auto object-cover rounded-md"
@@ -64,10 +64,10 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
 
       {/* Product Name */}
-      <div className="text-lg font-semibold mt-1">{props.product.model}</div>
+      <div className="text-md font-semibold mt-1">{props.product.model}</div>
 
       {/* Size */}
-      <div className="text-lg text-gray-600">
+      <div className="text-md text-gray-600">
         {"Size: " + props.product.size}
       </div>
 
