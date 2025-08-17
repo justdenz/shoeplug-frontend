@@ -13,11 +13,12 @@ export async function getGoogleSheetsData() {
   });
 
   const sheets = google.sheets({ version: "v4", auth: auth });
-  const rangeShoes = "Shoes!A2:I100";
+  const rangeShoes = "Shoes!A2:I";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range: rangeShoes,
+    majorDimension: "ROWS",
   });
 
   const rangeBrands = "Brands!A1:A50";
@@ -34,7 +35,6 @@ export async function getGoogleSheetsData() {
 
   rows?.forEach((row) => {
     // Print columns A and E, which correspond to indices 0 and 4.
-
     const tempShoe: IShoe = {
       shoe_id: row[0],
       date_bought: row[1],
