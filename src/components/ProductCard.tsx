@@ -1,5 +1,6 @@
 import React from "react";
-import { CldImage } from "next-cloudinary";
+// import { CldImage } from "next-cloudinary";
+import Image from "next/image";
 import { IShoe } from "@/models/Product";
 interface ProductCardProps {
   product: IShoe;
@@ -25,12 +26,16 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     <div className="w-[350px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
       <div className="justify-items-center">
-        <CldImage
-          src={props.product.image_url}
+        <Image
+          // src={props.product.image_url}
+          src={
+            "https://res.cloudinary.com/shoe-plug-media/image/upload/" +
+            props.product.image_url
+          }
           width={300}
           height={350}
           alt="KT 2 SPLASH"
-          crop="fill"
+          // crop="fill"
           className="w-auto h-auto object-cover rounded-md"
         />
       </div>

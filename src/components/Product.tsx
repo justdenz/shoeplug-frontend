@@ -69,7 +69,7 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
                   {shoes &&
                     shoes.map((product: IShoe) => {
                       return (
-                        <ProductCard key={product.shoe_id} product={product} />
+                        <ProductCard key={Math.random()} product={product} />
                       );
                     })}
                 </div>
