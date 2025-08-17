@@ -37,6 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           sizes="100vw"
           alt="KT 2 SPLASH"
           className="w-[300px] h-[350px] rounded-md object-cover"
+          priority={true}
         />
       </div>
 
