@@ -1,7 +1,6 @@
 // src/components/Header.tsx
 
 import React from "react";
-import { CldImage } from "next-cloudinary";
 import SearchAppBar from "./TestSearch";
 import Image from "next/image";
 import ShoePlugLogo from "../../public/logo.jpg";

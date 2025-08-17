@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Facebook, Instagram } from "lucide-react";
 
 const Footer = () => {
@@ -31,9 +32,9 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="/shipping_policy" className="hover:text-white">
+              <Link href="/shipping_policy" className="hover:text-white">
                 Shipping & Returns
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="hover:text-white">

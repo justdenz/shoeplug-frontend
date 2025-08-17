@@ -23,9 +23,9 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     return <div className="text-green-500">Brand New</div>;
   };
   return (
-    <div className="w-[350px] h-full bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
+    <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
-      <div className="justify-items-center">
+      <div className="justify-items-center w-[325px] h-[375px] ">
         <Image
           // src={props.product.image_url}
           src={
@@ -35,8 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           width={300}
           height={350}
           alt="KT 2 SPLASH"
-          // crop="fill"
-          className="w-auto h-auto object-cover rounded-md"
+          className="w-auto h-auto object-cover rounded-md object-cover"
         />
       </div>
 
