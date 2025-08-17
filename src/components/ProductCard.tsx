@@ -25,17 +25,18 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   return (
     <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
-      <div className="justify-items-center w-[325px] h-[375px] ">
+      <div className="justify-items-center w-[300px] h-[350px] ">
         <Image
           // src={props.product.image_url}
           src={
             "https://res.cloudinary.com/shoe-plug-media/image/upload/" +
             props.product.image_url
           }
-          width={300}
-          height={350}
+          width="0"
+          height="0"
+          sizes="100vw"
           alt="KT 2 SPLASH"
-          className="w-auto h-auto object-cover rounded-md object-cover"
+          className="w-[300px] h-[350px] rounded-md object-cover"
         />
       </div>
 
