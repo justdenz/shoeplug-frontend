@@ -3,14 +3,16 @@
 import React from "react";
 import { CldImage } from "next-cloudinary";
 import SearchAppBar from "./TestSearch";
+import Image from "next/image";
+import ShoePlugLogo from "../../public/logo.jpg";
 
 const Header: React.FC = () => {
   return (
     <header className="flex flex-row h-20 justify-between items-center bg-black text-white sticky top-0 z-10">
       <div className="logo ml-5">
         <a href={"/"}>
-          <CldImage
-            src={"shoeplug_logo"}
+          <Image
+            src={ShoePlugLogo}
             alt="Logo"
             width={70}
             height={60}
