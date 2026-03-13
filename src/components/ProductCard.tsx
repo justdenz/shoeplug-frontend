@@ -41,7 +41,9 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
 
       {/* Product Name */}
-      <div className="text-md font-semibold mt-1">{props.product.model}</div>
+      <div className="text-md font-semibold mt-1 w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
+        {props.product.model}
+      </div>
 
       {/* Size */}
       <div className="text-md text-gray-600">
