@@ -2,13 +2,16 @@ import React from "react";
 // import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { IShoe } from "@/models/Product";
+import GenericShoeImg from "../../public/generic_shoe.png";
 interface ProductCardProps {
   product: IShoe;
 }
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const link = CLOUDINARY_CLOUD_NAME + props.product.image_url;
+  const link = props.product.image_url
+    ? CLOUDINARY_CLOUD_NAME + props.product.image_url
+    : GenericShoeImg;
   const conditionElement = () => {
     if (props.product.condition === "BRAND_NEW") {
       return <div className="text-green-500">Brand New</div>;
