@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
 import Router from "next/router";
 import React from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 export async function getServerSideProps() {
   const response = await getGoogleSheetsData();
@@ -56,6 +57,7 @@ export default function Page(props: {
         filter={filter}
         loading={loading}
       />
+      <Analytics />
     </div>
   );
 }
