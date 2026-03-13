@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 
 import React from "react";
-import SearchAppBar from "./TestSearch";
+import SearchAppBar from "./Search";
 import Image from "next/image";
 import ShoePlugLogo from "../../public/logo.jpg";
 

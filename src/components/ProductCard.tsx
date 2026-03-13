@@ -5,8 +5,11 @@ import { IShoe } from "@/models/Product";
 interface ProductCardProps {
   product: IShoe;
 }
+const CLOUDINARY_CLOUD_NAME =
+  "https://res.cloudinary.com/shoe-plug-media/image/upload/";
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
+  const link = CLOUDINARY_CLOUD_NAME + props.product.image_url;
   const conditionElement = () => {
     if (props.product.condition === "BRAND_NEW") {
       return <div className="text-green-500">Brand New</div>;
@@ -25,13 +28,10 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   return (
     <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
-      <div className="justify-items-center w-[300px] h-[350px] ">
+      <div className="justify-items-center">
         <Image
           // src={props.product.image_url}
-          src={
-            "https://res.cloudinary.com/shoe-plug-media/image/upload/" +
-            props.product.image_url
-          }
+          src={link}
           width="0"
           height="0"
           sizes="100vw"

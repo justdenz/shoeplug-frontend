@@ -27,7 +27,7 @@ const PaginationBasic: React.FC<PaginationProps> = ({ page, totalPages }) => {
     <div className="justify-items-center">
       <Pagination
         count={Math.ceil(totalPages)}
-        siblingCount={1}
+        siblingCount={0}
         page={page}
         onChange={handlePageSelect}
         size="large"

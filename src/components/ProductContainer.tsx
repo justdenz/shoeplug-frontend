@@ -19,7 +19,7 @@ interface ProductProps {
   loading: boolean;
 }
 
-const Product: React.FC<ProductProps> = (props: ProductProps) => {
+const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
   const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE : 0;
   const endIndex = props.page * PAGE_SIZE;
   let shoes = props.allProducts;
@@ -29,7 +29,7 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
     if (props.filter.brand !== "") {
       shoes = shoes.filter(
         (product) =>
-          product.brand.toLowerCase() === props.filter.brand.toLowerCase()
+          product.brand.toLowerCase() === props.filter.brand.toLowerCase(),
       );
     }
 
@@ -37,12 +37,14 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
       shoes = shoes.filter(
         (product) =>
           product.condition.toLowerCase() ===
-          props.filter.condition.toLowerCase()
+          props.filter.condition.toLowerCase(),
       );
     }
   } else if (props.searchItem !== "") {
     shoes = props.allProducts.filter((product) =>
-      product.model.toLowerCase().includes(props.searchItem.toLocaleLowerCase())
+      product.model
+        .toLowerCase()
+        .includes(props.searchItem.toLocaleLowerCase()),
     );
   }
   totalPages = Math.ceil(shoes.length / PAGE_SIZE);
@@ -83,4 +85,4 @@ const Product: React.FC<ProductProps> = (props: ProductProps) => {
   );
 };
 
-export default Product;
+export default ProductContainer;

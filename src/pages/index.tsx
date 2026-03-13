@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Product from "@/components/Product";
+import ProductContainer from "@/components/ProductContainer";
 import { getGoogleSheetsData } from "@/lib/googleapi";
 import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
@@ -48,7 +48,7 @@ export default function Page(props: {
   const brands = props.response.brands;
   return (
     <div className="min-w-xl justify-self-center">
-      <Product
+      <ProductContainer
         allProducts={rows}
         allBrands={brands}
         page={+page}
