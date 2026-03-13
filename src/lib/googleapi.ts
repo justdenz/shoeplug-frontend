@@ -35,18 +35,20 @@ export async function getGoogleSheetsData() {
 
   rows?.forEach((row) => {
     // Print columns A and E, which correspond to indices 0 and 4.
-    const tempShoe: IShoe = {
-      shoe_id: row[0],
-      date_bought: row[1],
-      model: row[2],
-      condition: row[3],
-      size: row[4],
-      price: row[5],
-      status: row[6],
-      image_url: row[7],
-      brand: row[8],
-    };
-    shoeArray.push(tempShoe);
+    if (row[2] !== "") {
+      const tempShoe: IShoe = {
+        shoe_id: row[0] ?? "N/A",
+        date_bought: row[1] ?? "N/A",
+        model: row[2] ?? "N/A",
+        condition: row[3] ?? "N/A",
+        size: row[4] ?? "N/A",
+        price: row[5] ?? "N/A",
+        status: row[6] ?? "N/A",
+        image_url: row[7] ?? "N/A",
+        brand: row[8] ?? "N/A",
+      };
+      shoeArray.push(tempShoe);
+    }
   });
 
   const sheetData = {

@@ -5,8 +5,7 @@ import { IShoe } from "@/models/Product";
 interface ProductCardProps {
   product: IShoe;
 }
-const CLOUDINARY_CLOUD_NAME =
-  "https://res.cloudinary.com/shoe-plug-media/image/upload/";
+const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const link = CLOUDINARY_CLOUD_NAME + props.product.image_url;
