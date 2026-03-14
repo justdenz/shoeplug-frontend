@@ -13,8 +13,8 @@ export async function getGoogleSheetsData() {
   });
 
   const sheets = google.sheets({ version: "v4", auth: auth });
-  
-  const rangeShoes = process.env.NODE_ENV === "production" ? "Shoes!A2:I" : "Shoestest!A2:I";
+
+  const rangeShoes = "Shoes!A2:I";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
@@ -22,17 +22,9 @@ export async function getGoogleSheetsData() {
     majorDimension: "ROWS",
   });
 
-  const rangeBrands = "Brands!A1:A50";
-
-  const resBrands = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.SHEET_ID,
-    range: rangeBrands,
-    majorDimension: "COLUMNS",
-  });
-
   const rows = resShoes.data.values;
-  const brandCol = resBrands.data.values;
   const shoeArray: IShoe[] = [];
+  const brands: string[] = [];
 
   rows?.forEach((row) => {
     // Print columns A and E, which correspond to indices 0 and 4.
@@ -48,13 +40,17 @@ export async function getGoogleSheetsData() {
         image_url: row[7] ?? "N/A",
         brand: row[8] ?? "N/A",
       };
+
+      row[8] !== "" && !brands.includes(row[8]) && brands.push(row[8]);
       shoeArray.push(tempShoe);
     }
   });
 
+  brands.sort((a, b) => a.localeCompare(b));
+
   const sheetData = {
     shoes: shoeArray,
-    brands: brandCol![0],
+    brands: brands,
   };
 
   return sheetData;

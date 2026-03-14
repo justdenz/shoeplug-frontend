@@ -53,7 +53,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
           {props.activeFilter.brand === "" ? "Brand" : props.activeFilter.brand}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
+        <Dropdown.Menu style={{ maxHeight: "400px", overflowY: "auto" }}>
           {props.allBrands &&
             props.allBrands.map((brand: string) => {
               const isActive =
