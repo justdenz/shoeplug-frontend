@@ -43,35 +43,35 @@ const CartItemRow: React.FC<{ item: ICartItem }> = ({ item }) => {
         <div className="text-sm mt-1">{conditionLabel(product.condition)}</div>
       </div>
 
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() =>
-              dispatch({
-                type: "UPDATE_QUANTITY",
-                payload: { shoe_id: product.shoe_id, quantity: quantity - 1 },
-              })
-            }
-            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
-            aria-label="Decrease quantity"
-          >
-            −
-          </button>
-          <span className="w-6 text-center font-semibold">{quantity}</span>
-          <button
-            onClick={() =>
-              dispatch({
-                type: "UPDATE_QUANTITY",
-                payload: { shoe_id: product.shoe_id, quantity: quantity + 1 },
-              })
-            }
-            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
-            aria-label="Increase quantity"
-          >
-            +
-          </button>
-        </div>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() =>
+            dispatch({
+              type: "UPDATE_QUANTITY",
+              payload: { shoe_id: product.shoe_id, quantity: quantity - 1 },
+            })
+          }
+          className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
+          aria-label="Decrease quantity"
+        >
+          −
+        </button>
+        <span className="w-6 text-center font-semibold">{quantity}</span>
+        <button
+          onClick={() =>
+            dispatch({
+              type: "UPDATE_QUANTITY",
+              payload: { shoe_id: product.shoe_id, quantity: quantity + 1 },
+            })
+          }
+          className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
+          aria-label="Increase quantity"
+        >
+          +
+        </button>
+      </div>
 
+      <div className="flex flex-col items-center gap-2">
         <div className="font-bold text-base">₱{product.price * quantity}</div>
 
         <button
