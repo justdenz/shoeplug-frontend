@@ -13,7 +13,8 @@ export async function getGoogleSheetsData() {
   });
 
   const sheets = google.sheets({ version: "v4", auth: auth });
-  const rangeShoes = "Shoestest!A2:I";
+  
+  const rangeShoes = process.env.NODE_ENV === "production" ? "Shoes!A2:I" : "Shoestest!A2:I";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
