@@ -41,7 +41,7 @@ export async function getGoogleSheetsData() {
         brand: row[8] ?? "N/A",
       };
 
-      row[8] !== "" && !brands.includes(row[8]) && brands.push(row[8]);
+      if (row[8] !== "" && !brands.includes(row[8])) brands.push(row[8]);
       shoeArray.push(tempShoe);
     }
   });
