@@ -4,6 +4,7 @@ import React from "react";
 import SearchAppBar from "./Search";
 import Image from "next/image";
 import ShoePlugLogo from "../../public/logo.jpg";
+import CartIcon from "./CartIcon";
 
 const Header: React.FC = () => {
   return (
@@ -19,8 +20,9 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <div className="w-32 md:w-auto mr-5">
+      <div className="w-32 md:w-auto mr-5 flex items-center gap-3">
         <SearchAppBar />
+        <CartIcon />
       </div>
     </header>
   );

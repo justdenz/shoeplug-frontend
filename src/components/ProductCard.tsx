@@ -3,12 +3,19 @@ import React from "react";
 import Image from "next/image";
 import { IShoe } from "@/models/Product";
 import GenericShoeImg from "../../public/generic_shoe.png";
+import { useCart } from "@/context/CartContext";
 interface ProductCardProps {
   product: IShoe;
 }
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
+  const { dispatch } = useCart();
+
+  const isSold =
+    props.product.status !== "" &&
+    props.product.status.toLowerCase() !== "available";
+
   const link = props.product.image_url
     ? CLOUDINARY_CLOUD_NAME + props.product.image_url
     : GenericShoeImg;
@@ -57,6 +64,25 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <div className="text-black">{"₱" + props.product.price}</div>
         {conditionElement()}
       </div>
+
+      {/* Add to Cart / Sold */}
+      {isSold ? (
+        <button
+          disabled
+          className="mt-2 w-full py-2 rounded-md bg-gray-300 text-gray-500 font-semibold cursor-not-allowed"
+        >
+          Sold
+        </button>
+      ) : (
+        <button
+          onClick={() =>
+            dispatch({ type: "ADD_TO_CART", payload: props.product })
+          }
+          className="mt-2 w-full py-2 rounded-md bg-black text-white font-semibold hover:bg-gray-800 transition-colors"
+        >
+          Add to Cart
+        </button>
+      )}
     </div>
   );
 };
