@@ -38,6 +38,12 @@ const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
 
   return (
     <NoSsr>
+      <div className="fixed top-17 left-0 right-0 z-40 bg-white shadow-sm px-4 py-2">
+        <ProductFilter
+          allBrands={props.allBrands}
+          activeFilter={props.filter}
+        />
+      </div>
       {shoes.length === 0 ? (
         <EmptySerach />
       ) : (
@@ -45,13 +51,7 @@ const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
           {props.loading ? (
             <Spinner />
           ) : (
-            <div className="mb-5">
-              <div className="my-4">
-                <ProductFilter
-                  allBrands={props.allBrands}
-                  activeFilter={props.filter}
-                />
-              </div>
+            <div className="mb-5 mt-20">
               <div className="min-h-[calc(100vh-5.75rem)]">
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 pb-20">
                   {shoes &&

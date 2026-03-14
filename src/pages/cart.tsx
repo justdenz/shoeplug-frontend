@@ -119,8 +119,12 @@ export default function CartPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
-
+      <div className="flex flex-row justify-between">
+        <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+        <Link href="/" className="text-2xl font-bold mb-6">
+          Back to shop
+        </Link>
+      </div>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart items list */}
         <div className="flex flex-col gap-4 flex-grow">
