@@ -2,15 +2,17 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { conditions } from "@/models/resource";
+import { capitalizeFirstLetter, isInConditions } from "@/utils/ProductUtils";
+import { IFilter } from "@/models/Filter";
+
 interface ProductFilterProps {
   allBrands: string[];
-  activeFilter: string;
+  activeFilter: IFilter;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (
-  props: ProductFilterProps
+  props: ProductFilterProps,
 ) => {
-  // const conditions = ["brand new", "good as new", "used"];
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -48,14 +50,14 @@ const ProductFilter: React.FC<ProductFilterProps> = (
       <div className="text-xl">Filter: </div>
       <Dropdown onSelect={(eventKey) => handleSelectBrand(eventKey!)}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          Brand
+          {props.activeFilter.brand === "" ? "Brand" : props.activeFilter.brand}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {props.allBrands &&
             props.allBrands.map((brand: string) => {
               const isActive =
-                brand.toLowerCase() === props.activeFilter.toLowerCase()
+                brand.toLowerCase() === props.activeFilter.brand.toLowerCase()
                   ? true
                   : false;
               return (
@@ -73,14 +75,19 @@ const ProductFilter: React.FC<ProductFilterProps> = (
 
       <Dropdown onSelect={(eventKey) => handleSelectCondition(eventKey!)}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          Condition
+          {isInConditions(conditions, props.activeFilter.condition)
+            ? capitalizeFirstLetter(
+                props.activeFilter.condition.split("_").join(" "),
+              )
+            : "Condition"}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {conditions &&
             conditions.map((condition: string) => {
               const isActive =
-                condition.toLowerCase() === props.activeFilter.toLowerCase()
+                condition.toLowerCase() ===
+                props.activeFilter.condition.toLowerCase()
                   ? true
                   : false;
               return (
@@ -90,7 +97,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (
                   active={isActive}
                 >
                   <div className="font-semibold">
-                    {condition.split("_").join(" ")}
+                    {capitalizeFirstLetter(condition.split("_").join(" "))}
                   </div>
                 </Dropdown.Item>
               );

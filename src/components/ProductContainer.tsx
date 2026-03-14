@@ -6,6 +6,11 @@ import { IShoe } from "@/models/Product";
 import { PAGE_SIZE } from "@/models/resource";
 import EmptySerach from "./EmptySearch";
 import Spinner from "./Spinner";
+import {
+  filterProducts,
+  filterProductsBySearch,
+  getShoesByIndex,
+} from "@/utils/ProductUtils";
 
 interface ProductProps {
   allProducts: IShoe[];
@@ -20,35 +25,16 @@ interface ProductProps {
 }
 
 const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
-  const startIndex = props.page !== 1 ? (props.page - 1) * PAGE_SIZE : 0;
-  const endIndex = props.page * PAGE_SIZE;
   let shoes = props.allProducts;
   let totalPages = 0;
 
   if (props.filter.brand !== "" || props.filter.condition !== "") {
-    if (props.filter.brand !== "") {
-      shoes = shoes.filter(
-        (product) =>
-          product.brand.toLowerCase() === props.filter.brand.toLowerCase(),
-      );
-    }
-
-    if (props.filter.condition !== "") {
-      shoes = shoes.filter(
-        (product) =>
-          product.condition.toLowerCase() ===
-          props.filter.condition.toLowerCase(),
-      );
-    }
+    shoes = filterProducts(props.allProducts, props.filter);
   } else if (props.searchItem !== "") {
-    shoes = props.allProducts.filter((product) =>
-      product.model
-        .toLowerCase()
-        .includes(props.searchItem.toLocaleLowerCase()),
-    );
+    shoes = filterProductsBySearch(props.allProducts, props.searchItem);
   }
   totalPages = Math.ceil(shoes.length / PAGE_SIZE);
-  shoes = shoes.slice(startIndex, endIndex);
+  shoes = getShoesByIndex(shoes, props.page, PAGE_SIZE);
 
   return (
     <NoSsr>
@@ -63,7 +49,7 @@ const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
               <div className="my-4">
                 <ProductFilter
                   allBrands={props.allBrands}
-                  activeFilter={props.filter.brand}
+                  activeFilter={props.filter}
                 />
               </div>
               <div className="min-h-[calc(100vh-5.75rem)]">

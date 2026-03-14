@@ -57,7 +57,7 @@ export default function Page(props: {
         filter={filter}
         loading={loading}
       />
-      <Analytics />
+      {process.env.NODE_ENV === "production" && <Analytics />}
     </div>
   );
 }
