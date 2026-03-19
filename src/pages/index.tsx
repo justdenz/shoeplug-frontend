@@ -1,59 +1,50 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductContainer from "@/components/ProductContainer";
-import { getGoogleSheetsData } from "@/lib/googleapi";
 import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
-import Router from "next/router";
 import React from "react";
 import { Analytics } from "@vercel/analytics/next";
+import { ProductsApiResponse } from "./api/products";
 
-export async function getServerSideProps() {
-  const response = await getGoogleSheetsData();
-  return {
-    props: {
-      response,
-    },
-  };
-}
-
-export default function Page(props: {
-  response: { shoes: IShoe[]; brands: string[] };
-}) {
-  const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
-    Router.events.on("routeChangeStart", start);
-    Router.events.on("routeChangeComplete", end);
-    Router.events.on("routeChangeError", end);
-    return () => {
-      Router.events.off("routeChangeStart", start);
-      Router.events.off("routeChangeComplete", end);
-      Router.events.off("routeChangeError", end);
-    };
-  }, []);
+export default function Page() {
+  const [shoes, setShoes] = React.useState<IShoe[]>([]);
+  const [brands, setBrands] = React.useState<string[]>([]);
+  const [totalPages, setTotalPages] = React.useState(0);
+  const [loading, setLoading] = React.useState(true);
 
   const search = useSearchParams();
-  const page = (search && search.get("page")) || 1;
+  const page = parseInt((search && search.get("page")) || "1", 10);
   const searchItem = (search && search.get("query")) || "";
-  const filter = {
-    brand: (search && search.get("brand")) || "",
-    condition: (search && search.get("condition")) || "",
-  };
+  const brand = (search && search.get("brand")) || "";
+  const condition = (search && search.get("condition")) || "";
 
-  const rows = props.response.shoes;
-  const brands = props.response.brands;
+  React.useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("page", String(page));
+    if (searchItem) params.set("query", searchItem);
+    if (brand) params.set("brand", brand);
+    if (condition) params.set("condition", condition);
+
+    setLoading(true);
+    fetch(`/api/products?${params.toString()}`)
+      .then((res) => res.json())
+      .then((data: ProductsApiResponse) => {
+        setShoes(data.shoes);
+        setBrands(data.brands);
+        setTotalPages(data.totalPages);
+      })
+      .finally(() => setLoading(false));
+  }, [page, searchItem, brand, condition]);
+
+  const filter = { brand, condition };
+
   return (
     <div className="min-w-xl justify-self-center">
       <ProductContainer
-        allProducts={rows}
+        shoes={shoes}
         allBrands={brands}
-        page={+page}
-        searchItem={searchItem}
+        page={page}
+        totalPages={totalPages}
         filter={filter}
         loading={loading}
       />
