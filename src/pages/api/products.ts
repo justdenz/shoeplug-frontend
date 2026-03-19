@@ -18,7 +18,7 @@ export interface ProductsApiResponse {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ProductsApiResponse | { error: string }>,
+  res: NextApiResponse<ProductsApiResponse | IShoe | { error: string }>,
 ) {
   if (req.method !== "GET") {
     res.setHeader("Allow", ["GET"]);
@@ -27,6 +27,13 @@ export default async function handler(
 
   try {
     const { shoes: allShoes, brands } = await getGoogleSheetsData();
+
+    const shoe_id = (req.query.shoe_id as string) || "";
+    if (shoe_id) {
+      const shoe = allShoes.find((s) => s.shoe_id === shoe_id);
+      if (!shoe) return res.status(404).json({ error: "Product not found" });
+      return res.status(200).json(shoe);
+    }
 
     const page = Math.max(1, parseInt((req.query.page as string) || "1", 10));
     const brand = (req.query.brand as string) || "";

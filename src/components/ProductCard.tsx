@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 // import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { IShoe } from "@/models/Product";
 import GenericShoeImg from "../../public/generic_shoe.png";
 import { useCart } from "@/context/CartContext";
+import Spinner from "./Spinner";
 interface ProductCardProps {
   product: IShoe;
 }
@@ -11,10 +12,39 @@ const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUB
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const { dispatch } = useCart();
+  const [loading, setLoading] = useState(false);
+  const [soldOut, setSoldOut] = useState(false);
 
   const isSold =
-    props.product.status !== "" &&
-    props.product.status.toLowerCase() !== "available";
+    soldOut ||
+    (props.product.status !== "" &&
+      props.product.status.toLowerCase() !== "available");
+
+  const handleAddToCart = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `/api/products?shoe_id=${encodeURIComponent(props.product.shoe_id)}`,
+      );
+      if (!res.ok) {
+        alert("Could not verify stock. Please try again.");
+        return;
+      }
+      const fresh: IShoe = await res.json();
+      const isNowSold =
+        fresh.status !== "" && fresh.status.toLowerCase() !== "available";
+      if (isNowSold) {
+        setSoldOut(true);
+        alert("Sorry, this item just sold out.");
+        return;
+      }
+      dispatch({ type: "ADD_TO_CART", payload: fresh });
+    } catch {
+      alert("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const link = props.product.image_url
     ? CLOUDINARY_CLOUD_NAME + props.product.image_url
@@ -75,12 +105,11 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         </button>
       ) : (
         <button
-          onClick={() =>
-            dispatch({ type: "ADD_TO_CART", payload: props.product })
-          }
-          className="mt-2 w-full py-2 rounded-md bg-black text-white font-semibold hover:bg-gray-800 transition-colors"
+          onClick={handleAddToCart}
+          disabled={loading}
+          className="mt-2 w-full py-2 rounded-md bg-black text-white font-semibold hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Add to Cart
+          {loading ? "Checking..." : "Add to Cart"}
         </button>
       )}
     </div>
