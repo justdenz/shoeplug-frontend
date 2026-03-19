@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getCachedSheetsData } from "@/lib/sheetsCache";
 import { getGoogleSheetsData } from "@/lib/googleapi";
 import {
   filterProducts,
@@ -26,11 +27,12 @@ export default async function handler(
   }
 
   try {
-    const { shoes: allShoes, brands } = await getGoogleSheetsData();
+    const { shoes: allShoes, brands } = await getCachedSheetsData();
 
     const shoe_id = (req.query.shoe_id as string) || "";
     if (shoe_id) {
-      const shoe = allShoes.find((s) => s.shoe_id === shoe_id);
+      const { shoes: allShoesRT } = await getGoogleSheetsData();
+      const shoe = allShoesRT.find((s) => s.shoe_id === shoe_id);
       if (!shoe) return res.status(404).json({ error: "Product not found" });
       return res.status(200).json(shoe);
     }
