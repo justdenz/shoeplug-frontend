@@ -117,6 +117,25 @@ export default function CartPage() {
     );
   }
 
+  const createPaymentIntent = async () => {
+    const paymentIntent = await fetch("/api/payment_intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        return response;
+      });
+
+    console.log(paymentIntent);
+
+    return paymentIntent;
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex flex-row justify-between">
@@ -155,7 +174,7 @@ export default function CartPage() {
           </button>
 
           <button
-            onClick={() => alert("Feature coming soon!")}
+            onClick={() => createPaymentIntent()}
             className="mt-3 w-full py-2 rounded-md bg-black text-white font-semibold hover:bg-gray-800 transition-colors"
           >
             Proceed to Checkout
