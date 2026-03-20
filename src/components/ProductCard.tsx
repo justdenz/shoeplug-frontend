@@ -4,7 +4,6 @@ import Image from "next/image";
 import { IShoe } from "@/models/Product";
 import GenericShoeImg from "../../public/generic_shoe.png";
 import { useCart } from "@/context/CartContext";
-import Spinner from "./Spinner";
 interface ProductCardProps {
   product: IShoe;
 }

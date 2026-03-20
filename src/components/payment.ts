@@ -41,37 +41,37 @@ export const createPaymentMethod = async () => {
 };
 
 // Function to Attach a Payment Method to the Intent by calling the PayMongo API
-export const attachIntentMethod = async (intent: any, method: any) => {
-  fetch(`https://api.paymongo.com/v1/payment_intents/${intent.id}/attach`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_PAYMONGO_PUBLIC + "").toString("base64")}`,
-    },
-    body: JSON.stringify({
-      data: {
-        attributes: {
-          payment_method: `${method.id}`,
-          client_key: `${intent.attributes.client_key}`,
-        },
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      const paymentIntent = response.data;
-      console.log(paymentIntent);
-      const paymentIntentStatus = paymentIntent.attributes.status;
-      if (paymentIntentStatus === "awaiting_next_action") {
-        window.open(
-          paymentIntent.attributes.next_action.redirect.url,
-          "_blank",
-        );
-      } else {
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// export const attachIntentMethod = async (intent: any, method: any) => {
+//   fetch(`https://api.paymongo.com/v1/payment_intents/${intent.id}/attach`, {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_PAYMONGO_PUBLIC + "").toString("base64")}`,
+//     },
+//     body: JSON.stringify({
+//       data: {
+//         attributes: {
+//           payment_method: `${method.id}`,
+//           client_key: `${intent.attributes.client_key}`,
+//         },
+//       },
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((response) => {
+//       const paymentIntent = response.data;
+//       console.log(paymentIntent);
+//       const paymentIntentStatus = paymentIntent.attributes.status;
+//       if (paymentIntentStatus === "awaiting_next_action") {
+//         window.open(
+//           paymentIntent.attributes.next_action.redirect.url,
+//           "_blank",
+//         );
+//       } else {
+//       }
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
