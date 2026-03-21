@@ -32,6 +32,7 @@ export default async function handler(
     .then(async (response) => {
       if (response.errors) {
         console.log(JSON.stringify(response.errors));
+        res.status(400).json({ errors: response.errors });
       } else {
         res.status(200).json({ body: response });
       }

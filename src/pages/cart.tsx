@@ -145,8 +145,6 @@ export default function CartPage() {
     const paymentIntentClientKey =
       paymentIntent.body.data.attributes.client_key;
 
-    console.log("Payment Method Id:", paymentMethodId);
-
     const attachPaymentIntent = await fetch("/api/attach_payment_intent", {
       method: "POST",
       headers: {
@@ -160,8 +158,6 @@ export default function CartPage() {
     })
       .then((response) => response.json())
       .then((response) => response);
-
-    console.log(attachPaymentIntent);
 
     return paymentIntent;
   };

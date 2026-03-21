@@ -41,11 +41,12 @@ export default async function handler(
     }),
   };
 
-  fetch("https://api.paymongo.com/v1/payment_methods", options)
+  await fetch("https://api.paymongo.com/v1/payment_methods", options)
     .then((response) => response.json())
     .then(async (response) => {
       if (response.errors) {
         console.log(JSON.stringify(response.errors));
+        res.status(400).json({ errors: response.errors });
       } else {
         res.status(200).json({ body: response });
       }
