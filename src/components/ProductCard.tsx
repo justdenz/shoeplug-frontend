@@ -68,12 +68,11 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       {/* Image */}
       <div className="justify-items-center">
         <Image
-          // src={props.product.image_url}
           src={link}
           width="0"
           height="0"
           sizes="100vw"
-          alt="KT 2 SPLASH"
+          alt="shoe_image"
           className="w-[300px] h-[350px] rounded-md object-cover"
         />
       </div>

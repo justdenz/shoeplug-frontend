@@ -131,7 +131,37 @@ export default function CartPage() {
         return response;
       });
 
-    console.log(paymentIntent);
+    const paymentMethod = await fetch("/api/payment_method", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => response);
+
+    const paymentIntentId = paymentIntent.body.data.id;
+    const paymentMethodId = paymentMethod.body.data.id;
+    const paymentIntentClientKey =
+      paymentIntent.body.data.attributes.client_key;
+
+    console.log("Payment Method Id:", paymentMethodId);
+
+    const attachPaymentIntent = await fetch("/api/attach_payment_intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentMethodId: paymentMethodId,
+        paymentIntentId: paymentIntentId,
+        paymentIntentClientKey: paymentIntentClientKey,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => response);
+
+    console.log(attachPaymentIntent);
 
     return paymentIntent;
   };

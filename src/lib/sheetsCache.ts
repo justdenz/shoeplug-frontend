@@ -28,6 +28,7 @@ export async function getCachedSheetsData(): Promise<{
   inflightRequest = getGoogleSheetsData()
     .then((data) => {
       cache = { data, expiresAt: Date.now() + TTL_MS };
+      console.log("Fetched fresh data from Google Sheets");
       return data;
     })
     .finally(() => {
