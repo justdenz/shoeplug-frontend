@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 // import { CldImage } from "next-cloudinary";
 import Image from "next/image";

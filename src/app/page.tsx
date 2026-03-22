@@ -1,12 +1,15 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+"use client";
+
+import { Suspense } from "react";
 import ProductContainer from "@/components/ProductContainer";
 import { useSearchParams } from "next/navigation";
 import { IShoe } from "@/models/Product";
 import React from "react";
 import { Analytics } from "@vercel/analytics/next";
-import { ProductsApiResponse } from "./api/products";
+import { ProductsApiResponse } from "@/app/api/products/route";
+import Spinner from "@/components/Spinner";
 
-export default function Page() {
+function HomeContent() {
   const [shoes, setShoes] = React.useState<IShoe[]>([]);
   const [brands, setBrands] = React.useState<string[]>([]);
   const [totalPages, setTotalPages] = React.useState(0);
@@ -50,5 +53,19 @@ export default function Page() {
       />
       {process.env.NODE_ENV === "production" && <Analytics />}
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center">
+          <Spinner />
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }

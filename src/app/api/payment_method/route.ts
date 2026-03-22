@@ -1,17 +1,14 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+import { NextResponse } from "next/server";
+
+export async function POST() {
   const options = {
     method: "POST",
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      authorization: "Basic " + btoa(process.env.PAYMONGO_SECRET + ""),
+      authorization:
+        "Basic " +
+        Buffer.from(process.env.PAYMONGO_SECRET + "").toString("base64"),
     },
     body: JSON.stringify({
       data: {
@@ -41,14 +38,14 @@ export default async function handler(
     }),
   };
 
-  await fetch("https://api.paymongo.com/v1/payment_methods", options)
-    .then((response) => response.json())
-    .then(async (response) => {
-      if (response.errors) {
-        console.log(JSON.stringify(response.errors));
-        res.status(400).json({ errors: response.errors });
-      } else {
-        res.status(200).json({ body: response });
-      }
-    });
+  const response = await fetch(
+    "https://api.paymongo.com/v1/payment_methods",
+    options,
+  ).then((res) => res.json());
+
+  if (response.errors) {
+    console.log(JSON.stringify(response.errors));
+    return NextResponse.json({ errors: response.errors }, { status: 400 });
+  }
+  return NextResponse.json({ body: response });
 }

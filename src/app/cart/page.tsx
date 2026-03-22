@@ -1,10 +1,11 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { ICartItem } from "@/models/Cart";
-import GenericShoeImg from "../../public/generic_shoe.png";
-import "bootstrap/dist/css/bootstrap.min.css";
+import GenericShoeImg from "../../../public/generic_shoe.png";
 
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
@@ -27,7 +28,7 @@ const CartItemRow: React.FC<{ item: ICartItem }> = ({ item }) => {
     : GenericShoeImg;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 bg-white rounded-lg shadow p-4 items-start sm:items-center">
+    <div className="flex flex-row sm:flex-row gap-4 bg-white rounded-lg shadow p-4 items-start sm:items-center">
       <Image
         src={imgSrc}
         width={100}
@@ -124,12 +125,8 @@ export default function CartPage() {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        return response;
-      });
+      .then((response) => response.json())
+      .then((response) => response);
 
     const paymentMethod = await fetch("/api/payment_method", {
       method: "POST",
@@ -145,7 +142,7 @@ export default function CartPage() {
     const paymentIntentClientKey =
       paymentIntent.body.data.attributes.client_key;
 
-    const attachPaymentIntent = await fetch("/api/attach_payment_intent", {
+    await fetch("/api/attach_payment_intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +167,7 @@ export default function CartPage() {
           Back to shop
         </Link>
       </div>
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-row lg:flex-row gap-8 justify-center">
         {/* Cart items list */}
         <div className="flex flex-col gap-4 flex-grow">
           {items.map((item) => (
@@ -179,7 +176,7 @@ export default function CartPage() {
         </div>
 
         {/* Order summary */}
-        <div className="bg-white rounded-lg shadow p-6 h-fit lg:min-w-[260px]">
+        <div className="bg-white rounded-lg shadow p-4 h-fit lg:min-w-[260px]">
           <h2 className="text-lg font-bold mb-4">Order Summary</h2>
 
           <div className="flex justify-between text-sm mb-2">

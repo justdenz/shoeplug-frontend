@@ -1,3 +1,5 @@
+"use client";
+
 import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 import PaginationBasic from "@/components/Paginator";

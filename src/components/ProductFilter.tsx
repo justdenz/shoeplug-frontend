@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";

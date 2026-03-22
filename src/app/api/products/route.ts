@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { getCachedSheetsData } from "@/lib/sheetsCache";
 import { getGoogleSheetsData } from "@/lib/googleapi";
 import {
@@ -17,30 +17,27 @@ export interface ProductsApiResponse {
   page: number;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ProductsApiResponse | IShoe | { error: string }>,
-) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", ["GET"]);
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
+export async function GET(request: NextRequest) {
   try {
     const { shoes: allShoes, brands } = await getCachedSheetsData();
+    const searchParams = request.nextUrl.searchParams;
 
-    const shoe_id = (req.query.shoe_id as string) || "";
+    const shoe_id = searchParams.get("shoe_id") || "";
     if (shoe_id) {
       const { shoes: allShoesRT } = await getGoogleSheetsData();
       const shoe = allShoesRT.find((s) => s.shoe_id === shoe_id);
-      if (!shoe) return res.status(404).json({ error: "Product not found" });
-      return res.status(200).json(shoe);
+      if (!shoe)
+        return NextResponse.json(
+          { error: "Product not found" },
+          { status: 404 },
+        );
+      return NextResponse.json(shoe);
     }
 
-    const page = Math.max(1, parseInt((req.query.page as string) || "1", 10));
-    const brand = (req.query.brand as string) || "";
-    const condition = (req.query.condition as string) || "";
-    const query = (req.query.query as string) || "";
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+    const brand = searchParams.get("brand") || "";
+    const condition = searchParams.get("condition") || "";
+    const query = searchParams.get("query") || "";
 
     let filtered: IShoe[] = allShoes;
 
@@ -54,11 +51,12 @@ export default async function handler(
     const totalPages = Math.ceil(totalItems / PAGE_SIZE);
     const shoes = getShoesByIndex(filtered, page, PAGE_SIZE);
 
-    return res
-      .status(200)
-      .json({ shoes, brands, totalPages, totalItems, page });
+    return NextResponse.json({ shoes, brands, totalPages, totalItems, page });
   } catch (err) {
     console.error("Error fetching products:", err);
-    return res.status(500).json({ error: "Failed to fetch products" });
+    return NextResponse.json(
+      { error: "Failed to fetch products" },
+      { status: 500 },
+    );
   }
 }

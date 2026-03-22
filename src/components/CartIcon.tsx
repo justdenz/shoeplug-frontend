@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { ShoppingCart } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
 const CartIcon: React.FC = () => {

@@ -15,7 +15,7 @@ const sheets = google.sheets({ version: "v4", auth });
 
 export async function getGoogleSheetsData() {
   const rangeShoes =
-    process.env.NODE_ENV === "production" ? "Shoes!A2:I" : "Shoestest!A2:I";
+    process.env.NODE_ENV === "production" ? "Shoes!A2:I" : "Shoes!A2:I";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,

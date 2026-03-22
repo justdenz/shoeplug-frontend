@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShippingPolicyPage: React.FC = () => {
+export default function ShippingPolicyPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-10 text-gray-800">
       <h1 className="text-3xl font-bold mb-6 text-center">Shipping Policy</h1>
@@ -71,6 +71,4 @@ const ShippingPolicyPage: React.FC = () => {
       </section>
     </div>
   );
-};
-
-export default ShippingPolicyPage;
+}
