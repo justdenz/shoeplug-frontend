@@ -8,6 +8,9 @@ import React from "react";
 import { Analytics } from "@vercel/analytics/next";
 
 export async function getServerSideProps() {
+  if (process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true") {
+    return { props: { response: { shoes: [], brands: [] } } };
+  }
   const response = await getGoogleSheetsData();
   return {
     props: {
