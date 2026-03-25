@@ -10,7 +10,7 @@ const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUB
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const link = props.product.image_url
-    ? CLOUDINARY_CLOUD_NAME + props.product.image_url
+    ? CLOUDINARY_CLOUD_NAME + props.product.shoe_id
     : GenericShoeImg;
   const conditionElement = () => {
     if (props.product.condition === "BRAND_NEW") {
