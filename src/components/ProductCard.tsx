@@ -13,11 +13,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     ? CLOUDINARY_CLOUD_NAME + props.product.shoe_id
     : GenericShoeImg;
   const conditionElement = () => {
-    if (props.product.condition === "BRAND_NEW") {
-      return <div className="text-green-500">Brand New</div>;
+    switch(props.product.condition) {
+      case "NEW":
+        return <div className="text-green-500">New</div>;
+      case "USED":
+        return <div className="text-yellow-500">{props.product.description}</div>;
+      default:
+        return <div className="text-gray-500">New</div>;
     }
-
-    return <div className="text-yellow-500">Used</div>;
   };
   return (
     <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">

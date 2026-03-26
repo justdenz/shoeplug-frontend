@@ -7,6 +7,7 @@ export interface IShoe {
   price: number;
   status: string;
   brand: string;
+  description: string;
 }
 
 export type ProductFilterObj = {

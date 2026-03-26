@@ -39,6 +39,7 @@ async function fetchGoogleSheetsData() {
         price: row[COLUMNS.price] ?? "N/A",
         status: row[COLUMNS.status] ?? "N/A",
         brand: row[COLUMNS.brand] ?? "N/A",
+        description: row[COLUMNS.description] ?? "N/A",
       };
 
       if (
