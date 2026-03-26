@@ -11,6 +11,7 @@ export default function Maintenance() {
             alt="Logo"
             width={70}
             height={60}
+            style={{ height: "auto" }}
             className="absolute top-2 m-auto rounded-full"
           />
         </div>

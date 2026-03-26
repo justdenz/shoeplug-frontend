@@ -18,21 +18,21 @@
     "googleapis": "^144.0.0",
     "lucide-react": "^0.525.0",
     "net": "^1.0.2",
-    "next": "14.2.14",
-    "react": "^18",
+    "next": "^16.2.1",
+    "react": "^19",
     "react-bootstrap": "^2.10.5",
     "react-bootstrap-icons": "^1.11.4",
-    "react-dom": "^18"
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.14",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.1",
     "postcss": "^8.4.47",
-    "tailwindcss": "^0.0.0-insiders.ed3c535",
+    "tailwindcss": "^3.4.0",
     "typescript": "^5"
   }
 }

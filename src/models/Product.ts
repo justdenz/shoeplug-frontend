@@ -6,7 +6,6 @@ export interface IShoe {
   size: number;
   price: number;
   status: string;
-  image_url: string;
   brand: string;
 }
 

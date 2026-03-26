@@ -9,7 +9,7 @@ interface ProductCardProps {
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const link = props.product.image_url
+  const link = props.product.shoe_id
     ? CLOUDINARY_CLOUD_NAME + props.product.shoe_id
     : GenericShoeImg;
   const conditionElement = () => {
@@ -17,15 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       return <div className="text-green-500">Brand New</div>;
     }
 
-    if (props.product.condition === "GOOD_AS_NEW") {
-      return <div className="text-sky-400">Good as new</div>;
-    }
-
-    if (props.product.condition === "USED") {
-      return <div className="text-yellow-500">Used</div>;
-    }
-
-    return <div className="text-green-500">Brand New</div>;
+    return <div className="text-yellow-500">Used</div>;
   };
   return (
     <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
@@ -37,7 +29,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           width="0"
           height="0"
           sizes="100vw"
-          alt="KT 2 SPLASH"
+          alt={props.product.model}
+          loading="lazy"
           className="w-[300px] h-[350px] rounded-md object-cover"
         />
       </div>

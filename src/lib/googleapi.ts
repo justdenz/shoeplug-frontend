@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import { IShoe } from "@/models/Product";
+import { COLUMNS } from "@/models/resource";
 
 export async function getGoogleSheetsData() {
   const auth = new google.auth.GoogleAuth({
@@ -27,21 +28,24 @@ export async function getGoogleSheetsData() {
   const brands: string[] = [];
 
   rows?.forEach((row) => {
-    // Print columns A and E, which correspond to indices 0 and 4.
-    if (row[2] !== "") {
+    if (row[COLUMNS.model] !== "") {
       const tempShoe: IShoe = {
-        shoe_id: row[0] ?? "N/A",
-        date_bought: row[1] ?? "N/A",
-        model: row[2] ?? "N/A",
-        condition: row[3] ?? "N/A",
-        size: row[4] ?? "N/A",
-        price: row[5] ?? "N/A",
-        status: row[6] ?? "N/A",
-        image_url: row[7] ?? "N/A",
-        brand: row[8] ?? "N/A",
+        shoe_id: row[COLUMNS.shoe_id] ?? "N/A",
+        date_bought: row[COLUMNS.date_bought] ?? "N/A",
+        model: row[COLUMNS.model] ?? "N/A",
+        condition: row[COLUMNS.condition] ?? "N/A",
+        size: row[COLUMNS.size] ?? "N/A",
+        price: row[COLUMNS.price] ?? "N/A",
+        status: row[COLUMNS.status] ?? "N/A",
+        brand: row[COLUMNS.brand] ?? "N/A",
       };
 
-      if (row[8] !== "" && !brands.includes(row[8])) brands.push(row[8]);
+      if (
+        row[COLUMNS.brand] !== "" &&
+        !brands.includes(row[COLUMNS.brand]) &&
+        row[COLUMNS.brand] !== undefined
+      )
+        brands.push(row[COLUMNS.brand]);
       shoeArray.push(tempShoe);
     }
   });
