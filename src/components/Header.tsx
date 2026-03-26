@@ -1,9 +1,16 @@
+"use client";
+
 // src/components/Header.tsx
 
 import React from "react";
-import SearchAppBar from "./Search";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import ShoePlugLogo from "../../public/logo.jpg";
+
+const SearchAppBar = dynamic(() => import("./Search"), {
+  ssr: false,
+  loading: () => <div className="w-32 h-10" />,
+});
 
 const Header: React.FC = () => {
   return (

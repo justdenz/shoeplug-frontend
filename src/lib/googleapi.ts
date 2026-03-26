@@ -1,8 +1,9 @@
 import { google } from "googleapis";
+import { unstable_cache } from "next/cache";
 import { IShoe } from "@/models/Product";
 import { COLUMNS } from "@/models/resource";
 
-export async function getGoogleSheetsData() {
+async function fetchGoogleSheetsData() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -59,3 +60,9 @@ export async function getGoogleSheetsData() {
 
   return sheetData;
 }
+
+export const getGoogleSheetsData = unstable_cache(
+  fetchGoogleSheetsData,
+  ["google-sheets-data"],
+  { revalidate: 300, tags: ["google-sheets-data"] },
+);

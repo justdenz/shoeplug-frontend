@@ -1,3 +1,5 @@
+"use client";
+
 // import Pagination from "react-bootstrap/Pagination";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React from "react";

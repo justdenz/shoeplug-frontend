@@ -1,16 +1,23 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import ProductCard from "@/components/ProductCard";
-import ProductFilter from "@/components/ProductFilter";
-import PaginationBasic from "@/components/Paginator";
-import NoSsr from "./NoSsr";
 import { IShoe } from "@/models/Product";
 import { PAGE_SIZE } from "@/models/resource";
 import EmptySerach from "./EmptySearch";
-import Spinner from "./Spinner";
 import {
   filterProducts,
   filterProductsBySearch,
   getShoesByIndex,
 } from "@/utils/ProductUtils";
+
+const ProductFilter = dynamic(() => import("@/components/ProductFilter"), {
+  loading: () => <div className="h-10" />,
+});
+
+const PaginationBasic = dynamic(() => import("@/components/Paginator"), {
+  loading: () => <div className="h-10" />,
+});
 
 interface ProductProps {
   allProducts: IShoe[];
@@ -21,7 +28,6 @@ interface ProductProps {
     brand: string;
     condition: string;
   };
-  loading: boolean;
 }
 
 const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
@@ -37,37 +43,33 @@ const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
   shoes = getShoesByIndex(shoes, props.page, PAGE_SIZE);
 
   return (
-    <NoSsr>
+    <>
       {shoes.length === 0 ? (
         <EmptySerach />
       ) : (
         <div className="flex flex-col items-center">
-          {props.loading ? (
-            <Spinner />
-          ) : (
-            <div className="mb-5">
-              <div className="my-4">
-                <ProductFilter
-                  allBrands={props.allBrands}
-                  activeFilter={props.filter}
-                />
-              </div>
-              <div className="min-h-[calc(100vh-5.75rem)]">
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 pb-20">
-                  {shoes &&
-                    shoes.map((product: IShoe) => {
-                      return (
-                        <ProductCard key={Math.random()} product={product} />
-                      );
-                    })}
-                </div>
-                <PaginationBasic page={props.page} totalPages={totalPages} />
-              </div>
+          <div className="mb-5">
+            <div className="my-4">
+              <ProductFilter
+                allBrands={props.allBrands}
+                activeFilter={props.filter}
+              />
             </div>
-          )}
+            <div className="min-h-[calc(100vh-5.75rem)]">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 pb-20">
+                {shoes &&
+                  shoes.map((product: IShoe) => {
+                    return (
+                      <ProductCard key={Math.random()} product={product} />
+                    );
+                  })}
+              </div>
+              <PaginationBasic page={props.page} totalPages={totalPages} />
+            </div>
+          </div>
         </div>
       )}
-    </NoSsr>
+    </>
   );
 };
 

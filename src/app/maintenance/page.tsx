@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ShoePlugLogo from "../../public/logo.jpg";
+import ShoePlugLogo from "../../../public/logo.jpg";
 
 export default function Maintenance() {
   return (
