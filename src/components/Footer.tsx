@@ -12,33 +12,17 @@ const Footer = () => {
         <div>
           <h2 className="text-white text-xl font-bold mb-3">ShoePlug.Ph</h2>
           <p className="text-sm">
-            Your go-to place for everything trendy. Fashion, gadgets, home decor
-            and more.
+            We sell shoes and other fashion items. We are based in the Philippines and we ship nationwide. Contact us through our facebook or instagram page to place an order.
           </p>
         </div>
 
         {/* Support Links */}
         <div>
-          <h3 className="text-white font-semibold mb-3">Support</h3>
+          <h3 className="text-white font-semibold mb-3">Orders</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a href="#" className="hover:text-white">
-                Contact Us
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white">
-                FAQs
-              </a>
-            </li>
-            <li>
-              <Link href="/shipping_policy" className="hover:text-white">
-                Shipping & Returns
-              </Link>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white">
-                Privacy Policy
+              <a href="/shipping" className="hover:text-white">
+                Order & Shipping
               </a>
             </li>
           </ul>

@@ -6,11 +6,9 @@ const ShippingPolicyPage: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Shipping Policy</h1>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Processing Time</h2>
+        <h2 className="text-xl font-semibold mb-2">Order</h2>
         <p>
-          Orders are processed within 1–3 business days (excluding weekends and
-          holidays) after receiving your order confirmation email. You will
-          receive another notification when your order has shipped.
+          Contact us through our facebook or instagram page to place an order. We will confirm your order and provide you with payment details. Once payment is confirmed, we will process your order and prepare it for shipment.
         </p>
       </section>
 
@@ -19,13 +17,13 @@ const ShippingPolicyPage: React.FC = () => {
           Shipping Rates & Estimates
         </h2>
         <p className="mb-2">
-          Shipping charges for your order will be calculated and displayed at
-          checkout.
+          Shipping rates will depend on the shipping method you choose and your location. We offer the following shipping options:
         </p>
         <ul className="list-disc ml-6 space-y-1">
-          <li>Standard Shipping (5–7 business days)</li>
-          <li>Express Shipping (2–3 business days)</li>
-          <li>Overnight Shipping (1 business day)</li>
+          <li>Lalamove</li>
+          <li>LBC</li>
+          <li>DHL</li>
+          <li>LBC</li>
         </ul>
       </section>
 
@@ -35,23 +33,6 @@ const ShippingPolicyPage: React.FC = () => {
           We currently ship internationally to selected countries. Shipping
           charges and delivery timelines vary by location and will be calculated
           at checkout.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Order Tracking</h2>
-        <p>
-          Once your order has shipped, you will receive an email with a tracking
-          number and link to track your package.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Shipping Delays</h2>
-        <p>
-          Delivery times may be affected during peak seasons or due to
-          unforeseen circumstances. We appreciate your patience and
-          understanding.
         </p>
       </section>
 
