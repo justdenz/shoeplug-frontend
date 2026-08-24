@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/context/CartContext";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -18,13 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="overflow-y-scroll min-h-screen">
       <body>
-        <div className="flex flex-col min-h-screen">
-          <Suspense>
-            <Header />
-          </Suspense>
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
+        <CartProvider>
+          <div className="flex flex-col min-h-screen">
+            <Suspense>
+              <Header />
+            </Suspense>
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </CartProvider>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import ShoePlugLogo from "../../public/logo.jpg";
+import CartIcon from "./CartIcon";
 
 const SearchAppBar = dynamic(() => import("./Search"), {
   ssr: false,
@@ -26,8 +27,9 @@ const Header: React.FC = () => {
           />
         </a>
       </div>
-      <div className="w-32 md:w-auto mr-5">
+      <div className="w-32 md:w-auto mr-5 flex items-center gap-3">
         <SearchAppBar />
+        <CartIcon />
       </div>
     </header>
   );
