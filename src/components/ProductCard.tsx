@@ -93,7 +93,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         type="button"
         onClick={handleAddToCart}
         disabled={loading || unavailable || inCart}
-        className="mt-2 rounded-md bg-black px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+        className={`mt-2 rounded-md px-3 py-2 text-sm font-semibold text-white transition-colors disabled:cursor-not-allowed ${inCart ? "bg-gray-400" : "bg-black hover:bg-gray-800 disabled:bg-gray-400"}`}
       >
         {loading ? "Checking stock..." : unavailable ? "Sold out" : inCart ? "In cart" : "Add to cart"}
       </button>
