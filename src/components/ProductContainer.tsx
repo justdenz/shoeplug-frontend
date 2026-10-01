@@ -60,7 +60,7 @@ const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
                 {shoes &&
                   shoes.map((product: IShoe) => {
                     return (
-                      <ProductCard key={Math.random()} product={product} />
+                      <ProductCard key={product.shoe_id} product={product} />
                     );
                   })}
               </div>

@@ -63,3 +63,11 @@ export const getShoesByIndex = (
   const endIndex = page * pageSize;
   return shoes.slice(startIndex, endIndex);
 };
+
+export const generateSlug = (brand: string, model: string, size: number | string): string => {
+  return `${brand} ${model} ${size}`
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+};

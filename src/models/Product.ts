@@ -8,6 +8,7 @@ export interface IShoe {
   status: string;
   brand: string;
   description: string;
+  slug: string;
 }
 
 export type ProductFilterObj = {

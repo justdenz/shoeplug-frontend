@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import { unstable_cache } from "next/cache";
 import { IShoe } from "@/models/Product";
 import { COLUMNS } from "@/models/resource";
+import { generateSlug } from "@/utils/ProductUtils";
 
 async function fetchGoogleSheetsData() {
   const auth = new google.auth.GoogleAuth({
@@ -30,16 +31,20 @@ async function fetchGoogleSheetsData() {
 
   rows?.forEach((row) => {
     if (row[COLUMNS.model] !== "") {
+      const brand = row[COLUMNS.brand] ?? "N/A";
+      const model = row[COLUMNS.model] ?? "N/A";
+      const size = row[COLUMNS.size] ?? "N/A";
       const tempShoe: IShoe = {
         shoe_id: row[COLUMNS.shoe_id] ?? "N/A",
         date_bought: row[COLUMNS.date_bought] ?? "N/A",
-        model: row[COLUMNS.model] ?? "N/A",
+        model,
         condition: row[COLUMNS.condition] ?? "N/A",
-        size: row[COLUMNS.size] ?? "N/A",
+        size,
         price: row[COLUMNS.price] ?? "N/A",
         status: row[COLUMNS.status] ?? "N/A",
-        brand: row[COLUMNS.brand] ?? "N/A",
+        brand,
         description: row[COLUMNS.description] ?? "N/A",
+        slug: generateSlug(brand, model, size),
       };
 
       if (

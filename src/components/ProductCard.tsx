@@ -1,6 +1,7 @@
 import React from "react";
 // import { CldImage } from "next-cloudinary";
 import Image from "next/image";
+import Link from "next/link";
 import { IShoe } from "@/models/Product";
 import GenericShoeImg from "../../public/generic_shoe.png";
 interface ProductCardProps {
@@ -23,6 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     }
   };
   return (
+    <Link href={`/products/${props.product.slug}`} className="no-underline">
     <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
       {/* Image */}
       <div className="justify-items-center">
@@ -39,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
 
       {/* Product Name */}
-      <div className="text-md font-semibold mt-1 w-[300px] whitespace-nowrap overflow-hidden text-ellipsis">
+      <div className="text-md text-black font-semibold mt-1 w-[300px] whitespace-nowrap overflow-hidden text-ellipsis hover:underline">
         {props.product.model}
       </div>
 
@@ -54,6 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         {conditionElement()}
       </div>
     </div>
+    </Link>
   );
 };
 
