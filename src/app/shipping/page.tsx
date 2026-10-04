@@ -8,7 +8,10 @@ const ShippingPolicyPage: React.FC = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Order</h2>
         <p>
-          Contact us through our facebook or instagram page to place an order. We will confirm your order and provide you with payment details. Once payment is confirmed, we will process your order and prepare it for shipment.
+          Contact us through our facebook or instagram page to place an order.
+          We will confirm your order and provide you with payment details. Once
+          payment is confirmed, we will process your order and prepare it for
+          shipment.
         </p>
       </section>
 
@@ -17,7 +20,8 @@ const ShippingPolicyPage: React.FC = () => {
           Shipping Rates & Estimates
         </h2>
         <p className="mb-2">
-          Shipping rates will depend on the shipping method you choose and your location. We offer the following shipping options:
+          Shipping rates will depend on the shipping method you choose and your
+          location. We offer the following shipping options:
         </p>
         <ul className="list-disc ml-6 space-y-1">
           <li>Lalamove</li>
@@ -45,7 +49,7 @@ const ShippingPolicyPage: React.FC = () => {
             href="mailto:support@example.com"
             className="text-blue-600 underline"
           >
-            support@example.com
+            shoeplug.ph0@gmail.com
           </a>
           .
         </p>
