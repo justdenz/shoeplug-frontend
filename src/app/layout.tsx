@@ -8,6 +8,9 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "ShoePlug.Ph",
   description: "Your go-to place for everything trendy.",
+  icons: {
+    icon: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({
