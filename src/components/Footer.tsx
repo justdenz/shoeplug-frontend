@@ -19,13 +19,11 @@ const Footer = () => {
         {/* Support Links */}
         <div>
           <h3 className="text-white font-semibold mb-3">Orders</h3>
-          <ul className="space-y-2 text-sm">
-            <li>
+          <div className="space-y-2 text-sm">
               <a href="/shipping" className="hover:text-white">
                 Order & Shipping
               </a>
-            </li>
-          </ul>
+          </div>
         </div>
 
         {/* Newsletter Signup & Socials */}
