@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IShoe } from "@/models/Product";
@@ -13,9 +14,12 @@ interface ProductDetailProps {
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
-  const imgSrc = product.shoe_id
+  const link = product.shoe_id
     ? CLOUDINARY_CLOUD_NAME + product.shoe_id
     : GenericShoeImg;
+
+  
+    const [imgSrc, setImgSrc] = useState(link);
 
   const isSold = product.status?.toUpperCase() === "SOLD";
 
@@ -41,6 +45,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             height={560}
             alt={product.model}
             className="rounded-xl object-cover w-full md:w-[480px] h-[560px]"
+            onError={() => {
+              setImgSrc(GenericShoeImg.src);
+            }}
           />
         </div>
 
