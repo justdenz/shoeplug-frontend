@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IShoe } from "@/models/Product";
-import { IG_URL } from "@/models/resource";
+import { IG_DM_URL } from "@/models/resource";
 import GenericShoeImg from "../../public/generic_shoe.png";
 
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
@@ -86,7 +86,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             </div>
           ) : (
             <a
-              href={IG_URL}
+              href={IG_DM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white text-center rounded-lg font-semibold hover:brightness-110 transition"

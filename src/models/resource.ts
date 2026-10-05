@@ -3,6 +3,7 @@ export const conditions = ["NEW", "USED"];
 export const FACEBOOK_URL =
   "https://www.facebook.com/profile.php?id=100054236060642";
 export const IG_URL = "https://www.instagram.com/shoeplug.ph/";
+export const IG_DM_URL = "https://ig.me/m/shoeplug.ph";
 export const COLUMNS = {
   shoe_id: 0,
   date_bought: 1,
