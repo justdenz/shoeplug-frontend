@@ -71,3 +71,17 @@ export const generateSlug = (brand: string, model: string, size: number | string
     .trim()
     .replace(/\s+/g, "-");
 };
+
+export const getConditionColor = (condition: string): string => {
+  console.log(condition);
+  switch (condition.trim().toUpperCase()) {
+    case "BRANDNEW":
+      return "text-emerald-600";
+    case "LIKE NEW":
+      return "text-blue-500";
+    case "WORN":
+      return "text-red-900";
+    default:
+      return "text-gray-700";
+  }
+};

@@ -17,7 +17,7 @@ async function fetchGoogleSheetsData() {
 
   const sheets = google.sheets({ version: "v4", auth: auth });
 
-  const rangeShoes = "Shoes!A2:I";
+  const rangeShoes = "SNEAKERS!A2:I";
 
   const resShoes = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,

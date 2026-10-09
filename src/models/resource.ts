@@ -10,8 +10,8 @@ export const COLUMNS = {
   model: 2,
   condition: 3,
   size: 4,
-  price: 5,
-  status: 6,
+  status: 5,
+  price: 6,
   brand: 7,
   description: 8
 };

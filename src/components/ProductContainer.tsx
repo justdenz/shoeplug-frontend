@@ -31,13 +31,13 @@ interface ProductProps {
 }
 
 const ProductContainer: React.FC<ProductProps> = (props: ProductProps) => {
-  let shoes = props.allProducts;
+  let shoes = [...props.allProducts].reverse();
   let totalPages = 0;
 
   if (props.filter.brand !== "" || props.filter.condition !== "") {
-    shoes = filterProducts(props.allProducts, props.filter);
+    shoes = filterProducts(shoes, props.filter);
   } else if (props.searchItem !== "") {
-    shoes = filterProductsBySearch(props.allProducts, props.searchItem);
+    shoes = filterProductsBySearch(shoes, props.searchItem);
   }
   totalPages = Math.ceil(shoes.length / PAGE_SIZE);
   shoes = getShoesByIndex(shoes, props.page, PAGE_SIZE);

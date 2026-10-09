@@ -6,6 +6,7 @@ import Link from "next/link";
 import { IShoe } from "@/models/Product";
 import { IG_DM_URL } from "@/models/resource";
 import GenericShoeImg from "../../public/generic_shoe.png";
+import { getConditionColor } from "@/utils/ProductUtils";
 
 const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/`;
 
@@ -23,11 +24,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
   const isSold = product.status?.toUpperCase() === "SOLD";
 
-  const conditionLabel =
-    product.condition === "NEW" ? "Brand New" : product.condition === "USED" ? product.description : "N/A";
+  // const conditionLabel =
+  //   product.condition === "BNDS" ? "Brand New" : product.condition === "USED" ? product.description : "N/A";
 
   const conditionColor =
-    product.condition === "NEW" ? "text-green-600" : "text-yellow-600";
+    getConditionColor(product.condition);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -62,7 +63,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           </h1>
 
           <p className="text-2xl font-semibold text-black">
-            ₱{Number(product.price).toLocaleString()}
+            {product.price}
           </p>
 
           <div className="flex items-center gap-3 text-sm">
@@ -75,7 +76,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           <div className="flex items-center gap-3 text-sm">
             <span className="text-gray-500">Condition</span>
             <span className={`font-medium ${conditionColor}`}>
-              {conditionLabel}
+              {product.condition}
             </span>
           </div>
 

@@ -12,18 +12,18 @@ const CLOUDINARY_CLOUD_NAME = `https://res.cloudinary.com/${process.env.NEXT_PUB
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const link = CLOUDINARY_CLOUD_NAME + props.product?.shoe_id;
   const [imgSrc, setImgSrc] = useState(link);
-  const conditionElement = () => {
-    switch (props.product.condition) {
-      case "NEW":
-        return <div className="text-green-500">New</div>;
-      case "USED":
-        return (
-          <div className="text-yellow-500">{props.product.description}</div>
-        );
-      default:
-        return <div className="text-gray-500">New</div>;
-    }
-  };
+  // const conditionElement = () => {
+  //   switch (props.product.condition) {
+  //     case "BNDS":
+  //       return <div className="text-green-500">NEW</div>;
+  //     case "USED":
+  //       return (
+  //         <div className="text-yellow-500">{props.product.condition}</div>
+  //       );
+  //     default:
+  //       return <div className="text-yellow-500">USED</div>;
+  //   }
+  // };
   return (
     <ProductCardLink href={`/products/${props.product.slug}`}>
       <div className="bg-white rounded-lg shadow p-2 grid grid-rows-[1/5_auto_auto_auto] gap-1">
@@ -56,8 +56,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
 
         {/* Price and Condition */}
         <div className="flex justify-between items-center text-lg font-bold">
-          <div className="text-black">{"₱" + props.product.price}</div>
-          {conditionElement()}
+          <div className="text-black">{props.product.price}</div>
+          {/* {conditionElement()} */}
         </div>
       </div>
     </ProductCardLink>
